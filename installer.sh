@@ -9,7 +9,7 @@ base='base-devel htop grep sudo pacman which zsh gparted ark spectacle kcalc wge
 consoles='konsole yakuake'
 aur='pamac'
 main='vlc okular gwenview dolphin discord bitwarden youtube-dl qbittorrent'
-dev='git code make cmake doxygen docker mysql okteta'
+dev='git code make cmake doxygen docker docker-compose mysql okteta'
 jeu='steam-manjaro lutris'
 
 lang_c='gcc clang valgrind'

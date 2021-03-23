@@ -7,5 +7,5 @@ mv spicetify-themes/* .
 rm -rf spicetify-themes LICENSE README.md CODE_OF_CONDUCT.md .gitignore
 # Mise à jour de Spotify
 spicetify backup apply enable-devtool
-spicetify config current_theme Spicy
+spicetify config current_theme Onepunch
 spicetify apply disable-devtool

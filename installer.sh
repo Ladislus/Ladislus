@@ -5,24 +5,21 @@
 # Clean des applications de bases non voulues
 sudo pacman -Rns kate firefox konversation manjaro-hello thunderbird cantata
 
-base='base-devel htop grep sudo pacman which zsh gparted ark spectacle kcalc wget tree'
+base='base-devel htop grep sudo pacman which zsh gparted ark spectacle wget tree'
 consoles='konsole yakuake'
 aur='pamac'
 main='vlc okular gwenview dolphin discord bitwarden youtube-dl qbittorrent'
-dev='git code make cmake doxygen docker docker-compose mysql okteta'
-jeu='steam-manjaro lutris'
+dev='git code make cmake doxygen docker docker-compose'
 
 lang_c='gcc clang valgrind'
-lang_java='jre-openjdk jdk-openjdk maven'
-lang_python='python2 python2-pip python3 python-pip'
-languages="kotlin go lua rustup php $lang_c $lang_java $lang_python"
+lang_python='python3 python-pip'
+languages="kotlin rustup $lang_c $lang_python"
 
 # Installation des paquets
-sudo pacman -Syu $base $consoles $aur $main $dev $jeu $languages
+sudo pacman -Syu $base $consoles $aur $main $dev $languages
 
 # Configuration de pip
 pip3 install --upgrade pip
-pip install --upgrade pip
 # Packages python
 pip install virtualenv lyrics-in-terminal
 
@@ -35,7 +32,7 @@ rustup -V
 #        AUR        #
 #####################
 
-internet='google-chrome mailspring'
+internet='google-chrome'
 dev='jetbrains-toolbox'
 music='spotify spicetify-cli'
 jeu='ankama-launcher minecraft-launcher'

@@ -2,13 +2,13 @@
     <h1 align="center"> Hi there 👋 </h1>
 </div>
 <div id="badges" align="center">
-    <a src="https://discordapp.com/users/192709241855803392">
+    <a href="https://discordapp.com/users/192709241855803392">
         <img src="Icons/Social/discord.svg" alt="Discord"/>
     </a>
-    <a src="https://stackoverflow.com/users/11448458">
+    <a href="https://stackoverflow.com/users/11448458">
         <img src="Icons/Social/stackoverflow.svg" alt="StackOverflow"/>
     </a>
-    <a src="https://www.linkedin.com/in/ladislaswalcak/">
+    <a href="https://www.linkedin.com/in/ladislaswalcak/">
         <img src="Icons/Social/linkedin.svg" alt="LinkedIn"/>
     </a>
 </div>

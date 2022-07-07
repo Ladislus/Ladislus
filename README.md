@@ -94,14 +94,34 @@
 </div>
 <div id="repos" align="center">
     <h2> 📖 Some public repositories that represent me best </h2>
-    <img src="https://github-readme-stats.vercel.app/api/pin/?username=ladislus&repo=m2_as_project&theme=radical" />
-    <img src="https://github-readme-stats.vercel.app/api/pin/?username=ladislus&repo=m2_san_project&theme=radical" />
-    <img src="https://github-readme-stats.vercel.app/api/pin/?username=ladislus&repo=m2_php_sse-tp2&theme=radical" />
-    <img src="https://github-readme-stats.vercel.app/api/pin/?username=ladislus&repo=m2_php_mpi-project&theme=radical" />
-    <img src="https://github-readme-stats.vercel.app/api/pin/?username=ladislus&repo=m2_php_opencl-td2&theme=radical" />
-    <img src="https://github-readme-stats.vercel.app/api/pin/?username=ladislus&repo=m1_compil_luo&theme=radical" />
-    <img src="https://github-readme-stats.vercel.app/api/pin/?username=ladislus&repo=m1_proggraph_projet-cuda&theme=radical" />
-    <img src="https://github-readme-stats.vercel.app/api/pin/?username=ladislus&repo=m1_unity_project&theme=radical" />
-    <img src="https://github-readme-stats.vercel.app/api/pin/?username=ladislus&repo=m1_mga_5-coloration&theme=radical" />
-    <img src="https://github-readme-stats.vercel.app/api/pin/?username=ladislus&repo=m1_devmul_projet&theme=radical" />
+    <a href="https://github.com/Ladislus/m2_as_project/">
+        <img src="https://github-readme-stats.vercel.app/api/pin/?username=ladislus&repo=m2_as_project&theme=radical" />
+    </a>
+    <a href="https://github.com/Ladislus/m2_san_project/">
+        <img src="https://github-readme-stats.vercel.app/api/pin/?username=ladislus&repo=m2_san_project&theme=radical" />
+    </a>
+    <a href="https://github.com/Ladislus/m2_php_sse-tp2/">
+        <img src="https://github-readme-stats.vercel.app/api/pin/?username=ladislus&repo=m2_php_sse-tp2&theme=radical" />
+    </a>
+    <a href="https://github.com/Ladislus/m2_php_mpi-project/">
+        <img src="https://github-readme-stats.vercel.app/api/pin/?username=ladislus&repo=m2_php_mpi-project&theme=radical" />
+    </a>
+    <a href="https://github.com/Ladislus/m2_php_opencl-td2/">
+        <img src="https://github-readme-stats.vercel.app/api/pin/?username=ladislus&repo=m2_php_opencl-td2&theme=radical" />
+    </a>
+    <a href="https://github.com/Ladislus/m1_compil_luo/">
+        <img src="https://github-readme-stats.vercel.app/api/pin/?username=ladislus&repo=m1_compil_luo&theme=radical" />
+    </a>
+    <a href="https://github.com/Ladislus/m1_proggraph_projet-cuda/">
+        <img src="https://github-readme-stats.vercel.app/api/pin/?username=ladislus&repo=m1_proggraph_projet-cuda&theme=radical" />
+    </a>
+    <a href="https://github.com/Ladislus/m1_unity_project/">
+        <img src="https://github-readme-stats.vercel.app/api/pin/?username=ladislus&repo=m1_unity_project&theme=radical" />
+    </a>
+    <a href="https://github.com/Ladislus/m1_mga_5-coloration/">
+        <img src="https://github-readme-stats.vercel.app/api/pin/?username=ladislus&repo=m1_mga_5-coloration&theme=radical" />
+    </a>
+    <a href="https://github.com/Ladislus/m1_devmul_projet/">
+        <img src="https://github-readme-stats.vercel.app/api/pin/?username=ladislus&repo=m1_devmul_projet&theme=radical" />
+    </a>
 </div>

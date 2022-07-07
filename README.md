@@ -1,5 +1,6 @@
 <div id="header" align="center">
     <h1 align="center"> Hi there 👋 </h1>
+    <img src="Images/giraffe.gif">
 </div>
 <div id="badges" align="center">
     <a href="https://discordapp.com/users/192709241855803392">
@@ -21,11 +22,8 @@
 </div>
 <div id="about">
     <h2 align="center"> ✍️ About me </h2>
-    <ul>
-        <li> 22 years old </li>
-        <li> From 🥐🇫🇷🥖 </li>
-        <li> Master's degree in computer science </li>
-    </ul>
+    <p> Hi ! I'm Ladislas WALCAK, or simple Ladislus, a 22 years old computer science student from 🥐🇫🇷🥖 </p>
+    <p> Right now, my Github account hosts almost exclusivly the projects I had to do during my master's degree, along with a bunch of small personnal projects. Most of these repositories are private, which means that if you can see it, that means I'm proud of it (or at least I'm not ashamed enough to hide it). </p>
 </div>
 <h2 align="center"> 🛠️ A bunch of technologies I'm familliar with </h2>
 <table align="center">
@@ -88,8 +86,21 @@
         </td>
     </tr>
 </table>
-<h1 align="center"> 🔥 My stats </h1>
+<h2 align="center"> 🔥 My stats </h2>
 <div id="stats" align="center">
     <img src="https://github-readme-stats.vercel.app/api?username=ladislus&show_icons=true&theme=radical&count_private=true&hide=contribs" alt="Stats"/>
     <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=ladislus&layout=compact&hide=html,css&langs_count=5&theme=radical" alt="Languages"/>
+</div>
+<div id="repos" align="center">
+    <h2> 📖 Some public repositories that represent me best </h2>
+    <img src="https://github-readme-stats.vercel.app/api/pin/?username=ladislus&repo=m2_as_project&theme=radical" />
+    <img src="https://github-readme-stats.vercel.app/api/pin/?username=ladislus&repo=m2_san_project&theme=radical" />
+    <img src="https://github-readme-stats.vercel.app/api/pin/?username=ladislus&repo=m2_php_sse-tp2&theme=radical" />
+    <img src="https://github-readme-stats.vercel.app/api/pin/?username=ladislus&repo=m2_php_mpi-project&theme=radical" />
+    <img src="https://github-readme-stats.vercel.app/api/pin/?username=ladislus&repo=m2_php_opencl-td2&theme=radical" />
+    <img src="https://github-readme-stats.vercel.app/api/pin/?username=ladislus&repo=m1_compil_luo&theme=radical" />
+    <img src="https://github-readme-stats.vercel.app/api/pin/?username=ladislus&repo=m1_proggraph_projet-cuda&theme=radical" />
+    <img src="https://github-readme-stats.vercel.app/api/pin/?username=ladislus&repo=m1_unity_project&theme=radical" />
+    <img src="https://github-readme-stats.vercel.app/api/pin/?username=ladislus&repo=m1_mga_5-coloration&theme=radical" />
+    <img src="https://github-readme-stats.vercel.app/api/pin/?username=ladislus&repo=m1_devmul_projet&theme=radical" />
 </div>

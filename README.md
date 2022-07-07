@@ -23,8 +23,8 @@
 <div id="about">
     <h2 align="center"> ✍️ About me </h2>
     <p> Hi ! I'm Ladislas WALCAK, or simply Ladislus, a 22 years old computer science student from 🥐🇫🇷🥖 </p>
+    <p> Right now, my Github account hosts almost exclusively the projects I had to do during my master's degree, along with a bunch of small personnal projects. Most of these repositories are private, which means that if you can see it, that means I'm proud of it (or at least I'm not ashamed enough to hide it). </p>
     <p> I'm currently trying to learn Rust, along with game developpement using Unreal Engine and a bit of Blender. </p>
-    <p> Right now, my Github account hosts almost exclusivly the projects I had to do during my master's degree, along with a bunch of small personnal projects. Most of these repositories are private, which means that if you can see it, that means I'm proud of it (or at least I'm not ashamed enough to hide it). </p>
 </div>
 <h2 align="center"> 🛠️ A bunch of technologies I'm familliar with </h2>
 <table align="center">

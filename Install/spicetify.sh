@@ -7,5 +7,5 @@ mv spicetify-themes/* .
 rm -rf spicetify-themes LICENSE README.md CODE_OF_CONDUCT.md CONTRIBUTING.md THEMES.md manifest.json .gitignore
 # Mise à jour de Spotify
 spicetify backup apply
-spicetify config current_theme Ziro
+spicetify config current_theme BurntSienna
 spicetify apply

@@ -120,4 +120,4 @@ echo '~/.cargo/bin/rustyvibes ~/.rustyvibes-soundpacks/cherrymx-black-pbt &' >> 
 cp -r $SCRIPT_LOCATION/.config/ ~
 cp -r $SCRIPT_LOCATION/.local/ ~
 cp -r $SCRIPT_LOCATION/.icons/ ~
-cp -r $SCRIPT_LOCATION/usr/ /
+sudo cp -r $SCRIPT_LOCATION/usr/ /

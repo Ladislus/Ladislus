@@ -9,7 +9,7 @@ echo "Install script location \"$SCRIPT_LOCATION\""
 sudo pacman -Rns kate firefox konversation manjaro-hello thunderbird cantata
 
 # Install required packages
-# PACKAGES_SYSTEM='base-devel git top htop grep sudo vim which wget curl tree openssh zip sddm'
+# PACKAGES_SYSTEM='base-devel git htop grep sudo vim which wget curl tree openssh zip sddm'
 # PACKAGES_INSTALLER='pacman pamac'
 # PACKAGES_CONSOLE='yakuake zsh'
 # PACKAGES_UTILS='gparted ark spectacle vlc okular gwenview dolphin'
@@ -24,7 +24,7 @@ sudo pacman -Rns kate firefox konversation manjaro-hello thunderbird cantata
 # PACKAGES_ALL="$PACKAGES_SYSTEM $PACKAGES_INSTALLER $PACKAGES_CONSOLE $PACKAGES_UTILS $PACKAGES_PLUS $PACKAGES_EDITOR $PACKAGES_DOCKER $PACKAGES_C $PACKAGES_PYTHON $PACKAGES_JAVA $PACKAGES_RUST"
 
 # echo "All packages: $PACKAGES_ALL"
-sudo pacman -Syu base-devel git top htop grep sudo vim which wget curl tree openssh zip sddm pacman pamac yakuake zsh gparted ark spectacle vlc okular gwenview dolphin discord yt-dlp code docker docker-compose gcc clang valgrind make cmake doxygen python3 python-pip jdk8-openjdk jre8-openjdk jdk11-openjdk jre11-openjdk kotlin rustup
+sudo pacman -Syu base-devel git htop grep sudo vim which wget curl tree openssh zip sddm pacman pamac yakuake zsh gparted ark spectacle vlc okular gwenview dolphin discord yt-dlp code docker docker-compose gcc clang valgrind make cmake doxygen python3 python-pip jdk8-openjdk jre8-openjdk jdk11-openjdk jre11-openjdk kotlin rustup
 
 #####################
 #        AUR        #

@@ -102,7 +102,7 @@ spicetify apply
 #####################
 
 cargo install rustyvibes
-unzip -d ~ soundpacks.zip
+unzip -d ~ $SCRIPT_LOCATION/soundpacks.zip
 
 echo '~/.cargo/bin/rustyvibes ~/.rustyvibes-soundpacks/cherrymx-black-pbt &' >> ~/.xprofile
 
@@ -110,7 +110,7 @@ echo '~/.cargo/bin/rustyvibes ~/.rustyvibes-soundpacks/cherrymx-black-pbt &' >> 
 #      CONFIGS      #
 #####################
 
-cp -r ./.config/ ~
-cp -r ./.local/ ~
-cp -r ./.icons/ ~
-cp -r ./usr/ /
+cp -r $SCRIPT_LOCATION/.config/ ~
+cp -r $SCRIPT_LOCATION/.local/ ~
+cp -r $SCRIPT_LOCATION/.icons/ ~
+cp -r $SCRIPT_LOCATION/usr/ /

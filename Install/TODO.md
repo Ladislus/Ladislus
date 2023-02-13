@@ -1,7 +1,7 @@
 # TODO
 
 1.  Launch Google Chrome
-        a. Connect to google account
+        a. Connect to google accounts
         b. Add SSH key to Github
 2.  Launch Discord
         a. Connect
@@ -32,7 +32,9 @@
         II. Autostart       => Add Yakuake
     e. Users                => Change icon
     f. Accessibility        => Bell > Audible bell disabled
-    g. Applications         => Default Applications > Setup defaults
+    g. Applications
+        I. Location: Videos, Music & Pictures to Documents (Delete 'Videos', 'Musics' and 'Pictures' folders)
+        II. Default Applications: Setup defaults
     h. Input Device         => Touchpad > Scrolling with two fingers & Right-click with two fingers
     i. Display and Monitor  => Enable night colour
     j. Audio                => Disable notification sounds
@@ -43,4 +45,10 @@
         I. Blur background: no
         II. Background colour transparency: 5%
 7.  Setup dolphin
-    a.
+    a. Startup > Show on startup: Use default location
+    b. View Modes: Details
+        I. Folders Expandable: no
+        II. Date Style: Absolute
+    c. Navigation > Open archives as folder
+    d. Left bar > Recent: Hide recent section
+8. Configure Desktop bar & System Tray

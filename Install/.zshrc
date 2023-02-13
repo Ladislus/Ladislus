@@ -21,8 +21,8 @@ git config --global user.name "Ladislus"
 git config --global credential.helper store
 git config --global init.defaultBranch master
 git config --global commit.gpgsign true
-git config --global alias.graph 'git log --oneline --decorate --all --graph --stat --pretty="tformat:%C(bold yellow)Commit : %h %n%C(yellow)Author : %an (%ae)%n%C(yellow)Date : %ar%n%n%s"'
-git config --global alias.hard 'git reset --hard'
+git config --global alias.graph 'log --oneline --decorate --all --graph --stat --pretty="tformat:%C(bold yellow)Commit : %h %n%C(yellow)Author : %an (%ae)%n%C(yellow)Date : %ar%n%n%s"'
+git config --global alias.hard 'reset --hard'
 
 # Aliases
 alias ls='ls -Alhtr --color=auto'

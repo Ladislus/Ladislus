@@ -33,6 +33,9 @@ sudo pacman -Syu base-devel git top htop grep sudo vim which wget curl tree open
 # Enabling AUR support on pamac
 sudo sed -Ei '/EnableAUR/s/^#//' /etc/pamac.conf
 
+# Add tor-browser GPG key for signature check (as it's not in the default key servers)
+gpg --auto-key-locate nodefault,wkd --locate-keys torbrowser@torproject.org
+
 # PACKAGES_INTERNET='google-chrome tor-browser'
 # PACKAGES_MUSIC='spotify spicetify-cli'
 # PACKAGES_DEPENDENCIES='go-chroma' #Dependency for ccat (OhMyZsh plugin)

@@ -1,51 +1,116 @@
+SCRIPT_LOCATION=$(dirname -- ${BASH_SOURCE[0]})
+echo "Install script location \"$SCRIPT_LOCATION\""
+
 #####################
-#       Main        #
+#     PACKAGES      #
 #####################
 
-# Clean des applications de bases non voulues
+# Clean KDE default unwanted application
 sudo pacman -Rns kate firefox konversation manjaro-hello thunderbird cantata
 
-base='base-devel htop grep sudo pacman which zsh gparted ark spectacle wget tree'
-consoles='konsole yakuake'
-aur='pamac'
-main='vlc okular gwenview dolphin discord bitwarden youtube-dl qbittorrent'
-dev='git code make cmake doxygen docker docker-compose'
+# Install required packages
+PACKAGES_SYSTEM='base-devel git top htop grep sudo vim which wget curl tree openssh zip sddm'
+PACKAGES_INSTALLER='pacman pamac'
+PACKAGES_CONSOLE='yakuake zsh'
+PACKAGES_UTILS='gparted ark spectacle vlc okular gwenview dolphin'
+PACKAGES_PLUS='discord yt-dlp'
+PACKAGES_EDITOR='code'
+PACKAGES_DOCKER='docker docker-compose'
+PACKAGES_C='gcc clang valgrind make cmake doxygen'
+PACKAGES_PYTHON='python3 python-pip'
+PACKAGES_JAVA='jdk8-openjdk jre8-openjdk jdk11-openjdk jre11-openjdk kotlin'
+PACKAGES_RUST="rustup"
 
-lang_c='gcc clang valgrind'
-lang_python='python3 python-pip'
-languages="kotlin rustup $lang_c $lang_python"
+PACKAGES_ALL="$PACKAGES_SYSTEM $PACKAGES_INSTALLER $PACKAGES_CONSOLE $PACKAGES_UTILS $PACKAGES_PLUS $PACKAGES_EDITOR $PACKAGES_DOCKER $PACKAGES_C $PACKAGES_PYTHON $PACKAGES_JAVA $PACKAGES_RUST"
 
-# Installation des paquets
-sudo pacman -Syu $base $consoles $aur $main $dev $languages
-
-# Configuration de pip
-pip3 install --upgrade pip
-# Packages python
-pip install virtualenv lyrics-in-terminal
-
-# Configuration de rust
-rustup toolchain install stable
-rustup default stable
-rustup -V
+echo "All packages: $PACKAGES_ALL"
+sudo pacman -Syu $PACKAGES_ALL
 
 #####################
 #        AUR        #
 #####################
 
-internet='google-chrome'
-dev='jetbrains-toolbox'
-music='spotify spicetify-cli'
-jeu='ankama-launcher minecraft-launcher'
-dependencies='go-chroma' #Dependance pour ccat (plugin zsh)
+PACKAGES_INTERNET='google-chrome tor-browser'
+PACKAGES_MUSIC='spotify spicetify-cli'
+PACKAGES_DEPENDENCIES='go-chroma' #Dependency for ccat (OhMyZsh plugin)
 
-pamac build $internet $dev $music $jeu $dependencies
+PACKAGES_ALL="$PACKAGES_INTERNET $PACKAGES_MUSIC $PACKAGES_DEPENDENCIES"
+
+echo "AUR Packages: $PACKAGES_ALL"
+pamac install $PACKAGES_ALL
 
 #####################
 #        ZSH        #
 #####################
 
+# Install OhMyZsh
 sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
-# ZSH par défaut
+# Set ZSH as default
 chsh -s $(which zsh)
 sudo chsh -s $(which zsh)
+
+# Set config and load it
+cat $SCRIPT_LOCATION/.zshrc > ~/.zshrc
+source ~/.zshrc
+
+# Install Zsh-syntax-highlight plugin
+git -C $ZSH/plugins/ clone https://github.com/zsh-users/zsh-syntax-highlighting.git
+
+#####################
+#       KEYS        #
+#####################
+
+ssh-keygen -t rsa -b 4096
+
+#####################
+#      PYTHON       #
+#####################
+
+# Configure pip & installed packages
+pip3 install --upgrade pip
+pip install virtualenv
+
+#####################
+#       RUST        #
+#####################
+
+# Install Rust stable toolchain
+rustup toolchain install stable
+rustup default stable
+rustup -V
+
+#####################
+#     SPICETIFY     #
+#####################
+
+# Set permissions to change spotify look
+sudo chmod a+wr /opt/spotify -R
+
+# Download themes
+git -C ~/.config/spicetify/Themes/ clone https://github.com/morpheusthewhite/spicetify-themes
+mv ~/.config/spicetify/Themes/spicetify-themes/* ~/.config/spicetify/Themes/
+rm -rf ~/.config/spicetify/Themes/spicetify-themes
+
+# Set Spotify theme
+spicetify backup apply
+spicetify config current_theme BurntSienna
+spicetify apply
+
+#####################
+#     RUSTYVIBES    #
+#####################
+
+cargo install rustyvibes
+unzip -d ~ soundpacks.zip
+
+echo '~/.cargo/bin/rustyvibes ~/.rustyvibes-soundpacks/cherrymx-black-pbt &' >> ~/.xprofile
+
+#####################
+#      CONFIGS      #
+#####################
+
+cp -r ./.config/ ~
+cp -r ./.local/ ~
+cp -r ./.icons/ ~
+cp -r ./usr/ /

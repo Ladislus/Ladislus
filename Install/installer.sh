@@ -6,7 +6,7 @@ echo "Install script location \"$SCRIPT_LOCATION\""
 #####################
 
 # Clean KDE default unwanted application
-sudo pacman -Rns kate firefox konversation manjaro-hello thunderbird cantata
+# sudo pacman -Rns kate firefox konversation manjaro-hello thunderbird cantata
 
 # Install required packages
 # PACKAGES_SYSTEM='base-devel git htop grep sudo vim which wget curl tree openssh zip sddm'

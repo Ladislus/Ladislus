@@ -23,6 +23,8 @@ git config --global init.defaultBranch master
 git config --global commit.gpgsign true
 git config --global alias.graph 'log --oneline --decorate --all --graph --stat --pretty="tformat:%C(bold yellow)Commit : %h %n%C(yellow)Author : %an (%ae)%n%C(yellow)Date : %ar%n%n%s"'
 git config --global alias.hard 'reset --hard'
+git config --global alias.cm 'commit -m'
+git config --global alias.amend 'commit --amend'
 
 # Aliases
 alias ls='ls -Alhtr --color=auto'

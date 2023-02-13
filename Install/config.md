@@ -3,7 +3,7 @@
 DE: KDE
 
 ## Appearance
-App: Brise
+App: Breeze
 Plasma: Sweet-Mars
 Colors: Sweet-Mars
 Windows: Sweet-Mars
@@ -14,8 +14,6 @@ Startup screen: Sweet-Mars
 ## Startup
 Display Manager: SDDM
 Login screen: Sugar Candy
-
-=> Autostart Yakuake
 
 ## VS Code
 

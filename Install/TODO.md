@@ -15,8 +15,32 @@
         f. Download songs
         g. Launch spicetify script (configuration files aren't created before first launch, so we can't put it in the installer.sh)
 4.  Launch Code
-        a. install plugins (Because code-oss is the open source version, you can't add account, thus you must install plugins manually, and some packages are missing)
+        a. install plugins: Follow [config.md](./config.md#vs-code) (FBecause code-oss is the open source version, you can't add account, thus you must install plugins manually, and some packages are missing)
         b. Set terminal default profile (Command ">Terminal: Select Default Profile", select **zsh**, or **WSL** in case of windows)
-5.  Setup Yakuake
-        a. Add Autolaunch
-        b. Add 'CTRL+Space' shortcut to open it
+5.  Change Wallpaper
+6.  System settings
+    a. Appearance           => Follow [config.md](./config.md#appearance) (You may need install Sweet-Mars in "Global Theme", and in Window Decoration > Titlebar Button, Remove left 'pin' button)
+    b. Workspace Behavior
+        I. General Behavior => Clicking files or folder: Selects them
+        II. Desktop Effects => Activate Translucency
+        III. Screen Edges   => Top left: Present Windows - All Desktops
+        IV. Screen Lockings => Configure appearance
+        V. Virtual Desktops => Remove others desktops
+    c. Shortcuts            => Add 'CTRL+Space' shortcut to open Yakuake (Shortcuts > Add Application)
+    d. Startup & Shutdown
+        I. Login Screen     => Follow [config.md](./config.md#startup) (Change background image)
+        II. Autostart       => Add Yakuake
+    e. Users                => Change icon
+    f. Accessibility        => Bell > Audible bell disabled
+    g. Applications         => Default Applications > Setup defaults
+    h. Input Device         => Touchpad > Scrolling with two fingers & Right-click with two fingers
+    i. Display and Monitor  => Enable night colour
+    j. Audio                => Disable notification sounds
+    k. Bluetooth            => Disable bluetooth
+6.  Setup Yakuake
+    a. Command: /usr/zsh
+    b. Appearance (Edit Breeze)
+        I. Blur background: no
+        II. Background colour transparency: 5%
+7.  Setup dolphin
+    a.

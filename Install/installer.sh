@@ -9,35 +9,39 @@ echo "Install script location \"$SCRIPT_LOCATION\""
 sudo pacman -Rns kate firefox konversation manjaro-hello thunderbird cantata
 
 # Install required packages
-PACKAGES_SYSTEM='base-devel git top htop grep sudo vim which wget curl tree openssh zip sddm'
-PACKAGES_INSTALLER='pacman pamac'
-PACKAGES_CONSOLE='yakuake zsh'
-PACKAGES_UTILS='gparted ark spectacle vlc okular gwenview dolphin'
-PACKAGES_PLUS='discord yt-dlp'
-PACKAGES_EDITOR='code'
-PACKAGES_DOCKER='docker docker-compose'
-PACKAGES_C='gcc clang valgrind make cmake doxygen'
-PACKAGES_PYTHON='python3 python-pip'
-PACKAGES_JAVA='jdk8-openjdk jre8-openjdk jdk11-openjdk jre11-openjdk kotlin'
-PACKAGES_RUST="rustup"
+# PACKAGES_SYSTEM='base-devel git top htop grep sudo vim which wget curl tree openssh zip sddm'
+# PACKAGES_INSTALLER='pacman pamac'
+# PACKAGES_CONSOLE='yakuake zsh'
+# PACKAGES_UTILS='gparted ark spectacle vlc okular gwenview dolphin'
+# PACKAGES_PLUS='discord yt-dlp'
+# PACKAGES_EDITOR='code'
+# PACKAGES_DOCKER='docker docker-compose'
+# PACKAGES_C='gcc clang valgrind make cmake doxygen'
+# PACKAGES_PYTHON='python3 python-pip'
+# PACKAGES_JAVA='jdk8-openjdk jre8-openjdk jdk11-openjdk jre11-openjdk kotlin'
+# PACKAGES_RUST="rustup"
 
-PACKAGES_ALL="$PACKAGES_SYSTEM $PACKAGES_INSTALLER $PACKAGES_CONSOLE $PACKAGES_UTILS $PACKAGES_PLUS $PACKAGES_EDITOR $PACKAGES_DOCKER $PACKAGES_C $PACKAGES_PYTHON $PACKAGES_JAVA $PACKAGES_RUST"
+# PACKAGES_ALL="$PACKAGES_SYSTEM $PACKAGES_INSTALLER $PACKAGES_CONSOLE $PACKAGES_UTILS $PACKAGES_PLUS $PACKAGES_EDITOR $PACKAGES_DOCKER $PACKAGES_C $PACKAGES_PYTHON $PACKAGES_JAVA $PACKAGES_RUST"
 
-echo "All packages: $PACKAGES_ALL"
-sudo pacman -Syu $PACKAGES_ALL
+# echo "All packages: $PACKAGES_ALL"
+sudo pacman -Syu base-devel git top htop grep sudo vim which wget curl tree openssh zip sddm pacman pamac yakuake zsh gparted ark spectacle vlc okular gwenview dolphin discord yt-dlp code docker docker-compose gcc clang valgrind make cmake doxygen python3 python-pip jdk8-openjdk jre8-openjdk jdk11-openjdk jre11-openjdk kotlin rustup
 
 #####################
 #        AUR        #
 #####################
 
-PACKAGES_INTERNET='google-chrome tor-browser'
-PACKAGES_MUSIC='spotify spicetify-cli'
-PACKAGES_DEPENDENCIES='go-chroma' #Dependency for ccat (OhMyZsh plugin)
+# Enabling AUR support on pamac
+sudo sed -Ei '/EnableAUR/s/^#//' /etc/pamac.conf
 
-PACKAGES_ALL="$PACKAGES_INTERNET $PACKAGES_MUSIC $PACKAGES_DEPENDENCIES"
+# PACKAGES_INTERNET='google-chrome tor-browser'
+# PACKAGES_MUSIC='spotify spicetify-cli'
+# PACKAGES_DEPENDENCIES='go-chroma' #Dependency for ccat (OhMyZsh plugin)
 
-echo "AUR Packages: $PACKAGES_ALL"
-pamac install $PACKAGES_ALL
+# PACKAGES_ALL="$PACKAGES_INTERNET $PACKAGES_MUSIC $PACKAGES_DEPENDENCIES"
+
+# echo "AUR Packages: $PACKAGES_ALL"
+# pamac install $PACKAGES_ALL
+pamac install google-chrome tor-browser spotify spicetify-cli go-chroma
 
 #####################
 #        ZSH        #

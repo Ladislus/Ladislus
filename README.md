@@ -90,7 +90,7 @@
 <h2 align="center"> 🔥 My stats </h2>
 <div id="stats" align="center">
     <img src="https://github-readme-stats.vercel.app/api?username=ladislus&show_icons=true&theme=radical&count_private=true&hide=contribs" alt="Stats"/>
-    <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=ladislus&layout=compact&hide=html,css&langs_count=5&theme=radical" alt="Languages"/>
+    <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=ladislus&layout=compact&hide=html,css,qml&langs_count=5&theme=radical" alt="Languages"/>
 </div>
 <div id="repos" align="center">
     <h2> 📖 Some public repositories that represent me best </h2>

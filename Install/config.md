@@ -33,3 +33,6 @@ Zig                     => Marc Tiehuis
 ### Themes
 Electron Color Theme    => Kus Camara
 Material Icon Theme     => Philipp Kief
+
+### Shortcuts
+View: Toogle Panel Visibility   => CTRL+Space   (Toggle terminal windows)

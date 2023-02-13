@@ -4,7 +4,7 @@ export ZSH="/home/ladislus/.oh-my-zsh"
 ZSH_THEME="agnoster"
 ENABLE_CORRECTION="true"
 COMPLETION_WAITING_DOTS="true"
-plugins=(git branch colorize sudo z zsh-syntax-highlighting)
+plugins=(git branch colorize colored-man-pages sudo z zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 

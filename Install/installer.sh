@@ -70,6 +70,10 @@ git -C $ZSH/plugins/ clone https://github.com/zsh-users/zsh-syntax-highlighting.
 
 ssh-keygen -t rsa -b 4096
 
+gpg --full-generate-key
+# "gpg --list-secret-keys --keyid-format long" To list GPG keys
+# "gpg --export --armor KEYID" To get the ASCII version of the public key (where KEYID is "sec" section, without the algorithm)
+
 #####################
 #      PYTHON       #
 #####################

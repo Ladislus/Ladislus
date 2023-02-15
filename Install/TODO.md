@@ -2,7 +2,7 @@
 
 1.  Launch Google Chrome
         a. Connect to google accounts
-        b. Add SSH key to Github
+        b. Add SSH/GPG key to Github (And change GPG key ID in .zshrc)
 2.  Launch Discord
         a. Connect
         b. VERY IMPORTANT: Activate the **DISCORDOOOOO**

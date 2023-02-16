@@ -22,9 +22,9 @@
 </div>
 <div id="about">
     <h2 align="center"> ✍️ About me </h2>
-    <p> Hi ! I'm Ladislas WALCAK, or simply Ladislus, a 22 years old computer science student from 🥐🇫🇷🥖 </p>
+    <p> Hi ! I'm Ladislas WALCAK, or simply Ladislus, a 22 years old (former) computer science student from 🥐🇫🇷🥖 </p>
     <p> Right now, my Github account hosts almost exclusively the projects I had to do during my master's degree, along with a bunch of small personnal projects. Most of these repositories are private, which means that if you can see it, that means I'm proud of it (or at least I'm not ashamed enough to hide it). </p>
-    <p> I'm currently trying to learn Rust, along with game developpement using Unreal Engine and a bit of Blender. </p>
+    <p> I'm currently learning Rust, along with game developpement using Unreal Engine and a bit of Blender. </p>
 </div>
 <h2 align="center"> 🛠️ A bunch of technologies I'm familliar with </h2>
 <table align="center">
@@ -94,8 +94,9 @@
 </div>
 <div id="repos" align="center">
     <h2> 📖 Some public repositories that represent me best </h2>
-    <a href="https://github.com/Ladislus/m2_as_project/">
-        <img src="https://github-readme-stats.vercel.app/api/pin/?username=ladislus&repo=m2_as_project&theme=radical" />
+    <p align="left">The topics that interest me the most are the ones where high performance and optimisations are required, like for example operating systems, image filtering, distributed computing, emulators, game engines, static and dynamic analyzer, ...</p>
+    <a href="https://github.com/Ladislus/m1_mga_5-coloration/">
+        <img src="https://github-readme-stats.vercel.app/api/pin/?username=ladislus&repo=m1_mga_5-coloration&theme=radical" />
     </a>
     <a href="https://github.com/Ladislus/m2_san_project/">
         <img src="https://github-readme-stats.vercel.app/api/pin/?username=ladislus&repo=m2_san_project&theme=radical" />
@@ -118,10 +119,10 @@
     <a href="https://github.com/Ladislus/m1_unity_project/">
         <img src="https://github-readme-stats.vercel.app/api/pin/?username=ladislus&repo=m1_unity_project&theme=radical" />
     </a>
-    <a href="https://github.com/Ladislus/m1_mga_5-coloration/">
-        <img src="https://github-readme-stats.vercel.app/api/pin/?username=ladislus&repo=m1_mga_5-coloration&theme=radical" />
-    </a>
     <a href="https://github.com/Ladislus/m1_devmul_projet/">
         <img src="https://github-readme-stats.vercel.app/api/pin/?username=ladislus&repo=m1_devmul_projet&theme=radical" />
+    </a>
+    <a href="https://github.com/Ladislus/m2_as_project/">
+        <img src="https://github-readme-stats.vercel.app/api/pin/?username=ladislus&repo=m2_as_project&theme=radical" />
     </a>
 </div>

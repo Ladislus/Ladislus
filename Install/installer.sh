@@ -92,6 +92,13 @@ rustup default stable
 rustup -V
 
 #####################
+#      CONFIGS      #
+#####################
+
+unzip -d ~ $SCRIPT_LOCATION/home.zip
+sudo unzip -d / $SCRIPT_LOCATION/usr.zip
+
+#####################
 #     RUSTYVIBES    #
 #####################
 
@@ -99,12 +106,3 @@ cargo install rustyvibes
 unzip -d ~ $SCRIPT_LOCATION/soundpacks.zip
 
 echo '~/.cargo/bin/rustyvibes ~/.rustyvibes-soundpacks/cherrymx-black-pbt &' >> ~/.xprofile
-
-#####################
-#      CONFIGS      #
-#####################
-
-cp -r $SCRIPT_LOCATION/.config/ ~
-cp -r $SCRIPT_LOCATION/.local/ ~
-cp -r $SCRIPT_LOCATION/.icons/ ~
-sudo cp -r $SCRIPT_LOCATION/usr/ /

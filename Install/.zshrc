@@ -27,8 +27,8 @@ git config --global alias.cm 'commit -m'
 git config --global alias.cms 'commit -S -m'
 git config --global alias.amend 'commit --amend'
 
-# Hack to allow WSL to prompt for GPG Passphrase
-# export GPG_TTY=$(tty)
+# Direct GPG TTY to the current TTY (as sometimes it can't ask for passphrase)
+export GPG_TTY=$(tty)
 
 # Aliases
 alias ls='ls -Alhtr --color=auto'

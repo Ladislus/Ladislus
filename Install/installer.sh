@@ -103,6 +103,5 @@ sudo unzip -d / $SCRIPT_LOCATION/usr.zip
 #####################
 
 cargo install rustyvibes
-unzip -d ~ $SCRIPT_LOCATION/soundpacks.zip
 
 echo '~/.cargo/bin/rustyvibes ~/.rustyvibes-soundpacks/cherrymx-black-pbt &' >> ~/.xprofile

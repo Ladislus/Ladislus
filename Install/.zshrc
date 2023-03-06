@@ -1,4 +1,4 @@
-export ZSH="/home/ladislus/.oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 
 # OMZ Config
 ZSH_THEME="agnoster"

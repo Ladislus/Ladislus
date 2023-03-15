@@ -1,23 +1,23 @@
 <div id="header" align="center">
     <h1 align="center"> Hi there 👋 </h1>
-    <img src="Images/giraffe.gif">
+    <img src="assets/images/giraffe.gif">
 </div>
 <div id="badges" align="center">
     <a href="https://discordapp.com/users/192709241855803392">
-        <img src="Icons/Social/discord.svg" alt="Discord"/>
+        <img src="assets/icons/social/discord.svg" alt="Discord"/>
     </a>
     <a href="https://stackoverflow.com/users/11448458">
-        <img src="Icons/Social/stackoverflow.svg" alt="StackOverflow"/>
+        <img src="assets/icons/social/stackoverflow.svg" alt="StackOverflow"/>
     </a>
     <a href="https://www.linkedin.com/in/ladislaswalcak/">
-        <img src="Icons/Social/linkedin.svg" alt="LinkedIn"/>
+        <img src="assets/icons/social/linkedin.svg" alt="LinkedIn"/>
     </a>
     <br>
     <a href="mailto:walcak.ladislas@gmail.com">
-        <img src="Icons/Social/mail.svg" alt="Mail" />
+        <img src="assets/icons/social/mail.svg" alt="Mail" />
     </a>
     <a href="https://open.spotify.com/user/darkycrok">
-        <img src="Icons/Social/spotify.svg" alt="Spotify" />
+        <img src="assets/icons/social/spotify.svg" alt="Spotify" />
     </a>
 </div>
 <div id="about">
@@ -32,21 +32,21 @@
         <td>
             <div align="center">
                 <h3> Programming languages </h3>
-                <img src="Icons/DevIcon/c.svg" width=40 height=40>
-                <img src="Icons/DevIcon/cpp.svg" width=40 height=40>
-                <img src="Icons/DevIcon/java.svg" width=40 height=40>
-                <img src="Icons/DevIcon/kotlin.svg" width=40 height=40>
-                <img src="Icons/DevIcon/python.svg" width=40 height=40>
-                <img src="Icons/DevIcon/bash.svg" width=40 height=40>
+                <img src="assets/icons/techs/c.svg" width=40 height=40>
+                <img src="assets/icons/techs/cpp.svg" width=40 height=40>
+                <img src="assets/icons/techs/java.svg" width=40 height=40>
+                <img src="assets/icons/techs/kotlin.svg" width=40 height=40>
+                <img src="assets/icons/techs/python.svg" width=40 height=40>
+                <img src="assets/icons/techs/bash.svg" width=40 height=40>
             </div>
         </td>
         <td>
             <div align="center">
                 <h3> Web </h3>
-                <img src="Icons/DevIcon/angularjs.svg" width=40 height=40>
-                <img src="Icons/DevIcon/flask.svg" width=40 height=40>
-                <img src="Icons/DevIcon/symfony.svg" width=40 height=40>
-                <img src="Icons/DevIcon/spring.svg" width=40 height=40>
+                <img src="assets/icons/techs/angularjs.svg" width=40 height=40>
+                <img src="assets/icons/techs/flask.svg" width=40 height=40>
+                <img src="assets/icons/techs/symfony.svg" width=40 height=40>
+                <img src="assets/icons/techs/spring.svg" width=40 height=40>
             </div>
         </td>
     </tr>
@@ -54,35 +54,35 @@
         <td>
             <div align="center">
                 <h3> Database </h3>
-                <img src="Icons/DevIcon/sqlite.svg" width=40 height=40>
-                <img src="Icons/DevIcon/mysql.svg" width=40 height=40>
-                <img src="Icons/DevIcon/oracle.svg" width=40 height=40>
+                <img src="assets/icons/techs/sqlite.svg" width=40 height=40>
+                <img src="assets/icons/techs/mysql.svg" width=40 height=40>
+                <img src="assets/icons/techs/oracle.svg" width=40 height=40>
             </div>
         </td>
         <td>
             <div align="center">
-                <h3> Big Data </h3>            
-                <img src="Icons/DevIcon/pig.svg" width=40 height=40>
-                <img src="Icons/DevIcon/hive.svg" width=40 height=40>
+                <h3> Big Data </h3>
+                <img src="assets/icons/techs/pig.svg" width=40 height=40>
+                <img src="assets/icons/techs/hive.svg" width=40 height=40>
             </div>
         </td>
     </tr>
     <tr>
-        <td>  
+        <td>
             <div align="center">
                 <h3> Mobile </h3>
-                <img src="Icons/DevIcon/android.svg" width=40 height=40>
-                <img src="Icons/DevIcon/flutter.svg" width=40 height=40>
-                <img src="Icons/DevIcon/xamarin.svg" width=40 height=40>
+                <img src="assets/icons/techs/android.svg" width=40 height=40>
+                <img src="assets/icons/techs/flutter.svg" width=40 height=40>
+                <img src="assets/icons/techs/xamarin.svg" width=40 height=40>
             </div>
         </td>
         <td>
             <div align="center">
                 <h3> Tools </h3>
-                <img src="Icons/DevIcon/arduino.svg" width=40 height=40>
-                <img src="Icons/DevIcon/docker.svg" width=40 height=40>
-                <img src="Icons/DevIcon/git.svg" width=40 height=40>
-                <img src="Icons/DevIcon/cmake.svg" width=40 height=40>
+                <img src="assets/icons/techs/arduino.svg" width=40 height=40>
+                <img src="assets/icons/techs/docker.svg" width=40 height=40>
+                <img src="assets/icons/techs/git.svg" width=40 height=40>
+                <img src="assets/icons/techs/cmake.svg" width=40 height=40>
             </div>
         </td>
     </tr>
@@ -125,4 +125,6 @@
     <a href="https://github.com/Ladislus/m2_as_project/">
         <img src="https://github-readme-stats.vercel.app/api/pin/?username=ladislus&repo=m2_as_project&theme=radical" />
     </a>
+    <a href="https://github.com/Ladislus/lameboy/">
+        <img src="https://github-readme-stats.vercel.app/api/pin/?username=ladislus&repo=lameboy&theme=radical" />
 </div>

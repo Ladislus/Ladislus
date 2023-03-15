@@ -1,0 +1,37 @@
+{
+    // Config
+    "workbench.startupEditor": "none",
+    "editor.wordWrap": "on",
+
+    // Edtor Theme
+    "workbench.colorTheme": "Catppuccin Frappé",
+    "workbench.iconTheme": "material-icon-theme",
+
+    // Font
+    "editor.fontFamily": "FiraCode Nerd Font",
+    "editor.fontLigatures": true,
+    "editor.fontSize": 15,
+
+    // Cursor
+    "editor.cursorStyle": "line",
+    "editor.multiCursorModifier": "alt",
+    
+    // Code Style
+    "editor.tabSize": 4,
+    "editor.bracketPairColorization.enabled": true,
+    "editor.bracketPairColorization.independentColorPoolPerBracketType": true,
+    
+    // Terminal
+    "terminal.external.linuxExec": "zsh",
+
+    // Security
+    "security.workspace.trust.enabled": false,
+
+    // Minimap
+    "editor.minimap.enabled": true,
+    "editor.minimap.side": "right",
+    "editor.minimap.showSlider": "mouseover",
+
+    // Disable telemetry
+    "telemetry.telemetryLevel": "off"
+}

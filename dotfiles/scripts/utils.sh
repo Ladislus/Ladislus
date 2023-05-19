@@ -4,15 +4,23 @@
 
 # Function to check if a given program is available in the path
 # [IN]  PROGRAM:     The program name
-# [ERR] (1) Missing required program
+# [ERR] (1) Missing parameter
+#       (2) Missing required program
 function _ladislus_utils_require {
+    # Check if there is exactly one argument
+    if [ $# -ne 1 ]; then
+        _ladislus_utils_error "Usage: $0 [command to test]"
+        _ladislus_utils_error "Got: $@"
+        return 1
+    fi
+    
     # Copy program name
-    local PROGRAM="${1:?"Error: Missing program name"}"
+    local PROGRAM="${1:?"Error: Missing parameter 1"}"
 
     # Check if the program execution would succeed
-    if ! command -v $PROGRAM > /dev/null; then
+    if ! command -v "$PROGRAM" > /dev/null; then
         _ladislus_utils_error "Missing program '$PROGRAM'"
-        return 1
+        return 2
     fi
 
     # unset local variables
@@ -21,12 +29,13 @@ function _ladislus_utils_require {
 
 # Function to check if multiple programs are available in the path
 # [IN]  PROGRAMS*:      The program names
-# [ERR] (1) Missing parameter
+# [ERR] (1) Missing parameter(s)
 #       (2) Missing required program
 function _ladislus_utils_require_multiple {
     # Check that at least one parameter was provided
     if [ $# -eq 0 ]; then
-        _ladislus_utils_error "Function '$0' requires at least one argument"
+        _ladislus_utils_error "Usage: $0 [command to test]+"
+        _ladislus_utils_error "Got: $@"
         return 1
     fi
 
@@ -35,7 +44,7 @@ function _ladislus_utils_require_multiple {
 
     # Check that all provided program names are available
     for PROGRAM in $PROGRAMS; do
-        _ladislus_utils_require $PROGRAM || return 2
+        _ladislus_utils_require "$PROGRAM" || return 2
     done
 
     # unset local variables

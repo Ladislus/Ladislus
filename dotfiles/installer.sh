@@ -11,10 +11,10 @@ fi
 # Set environment variable
 export GIT="$HOME/Git"
 export DOTFILES="$GIT/Ladislus/dotfiles"
-export CATPPUCCIN="$HOME/.catppuccin"
 export SCRIPTS="$DOTFILES/scripts"
 export WALLPAPERS="$DOTFILES/wallpapers"
 export SOUNDPACKS="$DOTFILES/soundpacks"
+export CATPPUCCIN="$HOME/.catppuccin"
 
 # Create required folders if they don't already exist
 mkdir -p $GIT $CATPPUCCIN

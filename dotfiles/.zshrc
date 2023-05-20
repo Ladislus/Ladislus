@@ -3,10 +3,11 @@ export ZSH="$HOME/.oh-my-zsh"
 # Custom environment variables
 export GIT="$HOME/Git"
 export DOTFILES="$GIT/Ladislus/dotfiles"
-export CATPPUCCIN="$HOME/.catppuccin"
 export SCRIPTS="$DOTFILES/scripts"
 export WALLPAPERS="$DOTFILES/wallpapers"
 export SOUNDPACKS="$DOTFILES/soundpacks"
+export CATPPUCCIN="$HOME/.catppuccin"
+export SPICETIFY="$HOME/.spicetify"
 
 # OMZ Config
 ZSH_THEME="agnoster"
@@ -16,10 +17,11 @@ plugins=(git branch colored-man-pages sudo z zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
-# Source custom scripts
-for FILE in $SCRIPTS/*.sh; do
-    source $FILE
-done
+# Enable extended wildcards/expension
+setopt EXTENDED_GLOB
+
+# Source custom scripts through
+source $SCRIPTS/ladislus.sh
 
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
@@ -40,7 +42,7 @@ git config --global alias.cms 'commit -S -m'
 git config --global alias.amend 'commit --amend'
 git config --global alias.patch 'add --patch'
 git config --global alias.cr 'clone --recursive'
-git config --global alias.ps 'submodule update --init --recursive'
+git config --global alias.su 'submodule update --init --recursive'
 
 # Direct GPG TTY to the current TTY (as sometimes it can't ask for passphrase)
 export GPG_TTY=$(tty)

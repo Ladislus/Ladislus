@@ -1,69 +1,234 @@
 function _ladislus_ebook_cbz_to_zip {
 
     # Assert that required programs are available
-    _ladislus_utils_require_multiple basename cp || return 1
+    _ladislus_utils_require_multiple cp basename || return 1
 
-    # Copy input folder name
-    local IF="${${1:?"Error: Missing input folder"}%/}"
-
-    # Assert that the input folder is valid
-    if [ ! -d $IF ]; then
-        _ladislus_utils_error "Path '$IF' isn't a valid folder"
-        return 1
+    # Check if there one argument
+    if [[ $# -ne 1 ]]; then
+        _ladislus_utils_error "Usage: $0 [folder containing the CBZ files]"
+        _ladislus_utils_error "Got: '$@'"
+        return 2
     fi
 
+    # Copy input folder path to local variable, removing trailing '/' if present
+    local IF="${${1:?"Error: Missing parameter 1"}%/}"
+
+    # Assert that the input folder is valid
+    if [[ ! -d "$IF" ]]; then
+        _ladislus_utils_error "Path '$IF' isn't a valid folder"
+        return 3
+    fi
+
+    # Collect all CBZ files inside the provided folder
     local FILES=($IF/*.cbz(N))
+    local LEN=${#FILES[@]}
 
-    local LEN=${#FILES}
-    local INDEX=1
-    for FILE in $FILES; do
+    # If there is no files, return error
+    if [[ "$LEN" -eq 0 ]]; then
+        _ladislus_utils_error "No CBZ file in '$IF'"
+        return 4
+    fi
 
+    for _X in {1..$LEN}; do
+        local FILE="${FILES[$_X]}"
+        # Compute the name of the equivalent ZIP file
         local TARGET="${FILE/.cbz/.zip}"
 
-        [ -f "$TARGET" ] && continue
+        # If $TARGET file already exists, skip
+        [[ -f "$TARGET" ]] && continue
 
-        _ladislus_utils_print_interactive "[$INDEX/$LEN] Converting to zip: '$(basename $FILE)'"
-        cp "$FILE" "${FILE/.cbz/.zip}"
-        local INDEX=$(($INDEX + 1))
+        _ladislus_utils_print_interactive "[$_X/$LEN] Converting to zip: '$(basename $FILE)'"
+        # Copy $FILE with a zip extension instead (as CBZ are just zipped photos), or return error on failure
+        cp "$FILE" "$TARGET" || return 5
     done
 
     _ladislus_utils_println_interactive "Successfully converted $LEN CBZ files to ZIP"
-
-    unset LEN
-    unset INDEX
 }
 
-function _ladislus_ebook_folders {
+function _ladislus_ebook_extract {
+    # Assert that required program are available
+    _ladislus_utils_require_multiple basename unzip || return 1
 
-    _ladislus_utils_require_multiple realpath unzip || return 1
-
-    local INPUT_FOLDER="${${1:?"Error: Missing input folder"}%/}"
-
-    if [ ! -d $INPUT_FOLDER ]; then
-        _ladislus_utils_error "Path '$INPUT_FOLDER' isn't a valid folder" 1>&2
-        return 1
+    # Check if there one argument
+    if [[ $# -ne 1 ]]; then
+        _ladislus_utils_error "Usage: $0 [folder containing the ZIP files]"
+        _ladislus_utils_error "Got: '$@'"
+        return 2
     fi
 
-    _ladislus_utils_println "Treating ZIP files inside: '$(realpath $INPUT_FOLDER)'"
+    # Copy input folder path to local variable, removing trailing '/' if present
+    local IF="${${1:?"Error: Missing parameter 1"}%/}"
 
-    local FILES=($INPUT_FOLDER/*.zip(N))
+    # Assert that the input folder is valid
+    if [[ ! -d "$IF" ]]; then
+        _ladislus_utils_error "Path '$IF' isn't a valid folder"
+        return 3
+    fi
 
-    local LEN=${#FILES}
-    local INDEX=1
-    for F in $FILES; do
-        local DEST="${F/.zip/}"
-        _ladislus_utils_print_interactive "[$INDEX/$LEN] Unzipping '$F'"
-        unzip "$F" -d "$DEST" > /dev/null
-        local INDEX=$(($INDEX + 1))
+    # Collect all CBZ files inside the provided folder
+    local FILES=($IF/*.zip(N))
+    local LEN=${#FILES[@]}
+
+    # If there is no files, return error
+    if [[ "$LEN" -eq 0 ]]; then
+        _ladislus_utils_error "No ZIP file in '$IF'"
+        return 4
+    fi
+
+    for _X in {1..$LEN}; do
+        local FILE="${FILES[$_X]}"
+        # Compute the name of the equivalent ZIP file
+        local TARGET="${FILE/.zip/}"
+
+        # If $TARGET folder already exists, skip
+        [[ -d "$TARGET" ]] && continue
+
+        _ladislus_utils_print_interactive "[$_X/$LEN] Unzipping '$(basename $FILE)'"
+
+        # unzip $FILE zip into a folder with the same name, or return error on failure
+        unzip "$FILE" -d "$TARGET" > /dev/null || return 5
     done
 
-    _ladislus_utils_println_interactive "Successfully extracted $LEN ZIP files to folder '$(realpath $INPUT_FOLDER)'"
-
-    unset LEN
-    unset INDEX
+    _ladislus_utils_println_interactive "Successfully extracted $LEN ZIP files"
 }
 
 function _ladislus_ebook_pdfy {
-    # TODO: Copy from pdfy.sh
-    return 1
+    # Assert that required program are available
+    _ladislus_utils_require_multiple getopt wc convert basename img2pdf rm || return 1
+
+    # For some reason, assigning to local variable override the return code of 'getopt', so we can't trap invalid options
+    _X=$(getopt -o hso: -l help,skip-convert,output: -n "$0" -- "$@")
+
+    # If getopt failed, return error
+    if [[ $? -ne 0 ]]; then
+        _ladislus_utils_error "getopt failed"
+        return 2
+    fi
+
+    # Set getopt result as function parameters
+    eval set -- "$_X"
+
+    # Store usage string as multiple elements can trigger it
+    local USAGE="Usage: $0 [-s | --skip-output]? [-o | --output <output folder>] [folder containing the images]"
+
+    # Set flags according to the command line
+    local SC=false
+    local OF=""
+    while true; do
+        case "$1" in
+            -h | --help)
+                _ladislus_utils_println "$USAGE"
+                return 0
+                ;;
+            -s | --skip-convert)
+                local SC=true
+                shift
+                ;;
+            -o | --output)
+                local OF="$2"
+                shift 2
+                ;;
+            --)
+                shift
+                break
+                ;;
+            *)
+                _ladislus_utils_error "Unrecognized option '$1'"
+                return 3
+        esac
+    done
+
+    # Check if there one argument
+    if [[ $# -ne 1 ]]; then
+        _ladislus_utils_error "$USAGE"
+        _ladislus_utils_error "Got: '$@'"
+        return 4
+    fi
+
+    # Copy input folder path to local variable, removing trailing '/' if present
+    local IF="${${1:?"Error: Missing parameter 1"}%/}"
+    # Copy output folder path to local variable, removing trailing '/' if present, or defaulting to $IF
+    local OF="${${OF%/}:-$IF}"
+
+    # Assert that the input folder is valid
+    if [[ ! -d "$IF" ]]; then
+        _ladislus_utils_error "Path '$IF' isn't a valid folder"
+        return 5
+    fi
+
+    # Assert that the ouput folder is valid
+    if [[ ! -d "$OF" ]]; then
+        _ladislus_utils_error "Path '$OF' isn't a valid folder"
+        return 6
+    fi
+
+    # Compute PDF name and path
+    local PDF="$OF/$(basename $IF).pdf"
+
+    # Check that the output PDF doesn't already exist
+    if [[ -f "$PDF" ]]; then
+        _ladislus_utils_error "Path '$PDF' already exists"
+        return 7
+    fi
+
+    # Enable extended wildcards in case it isn't already
+    setopt EXTENDED_GLOB
+
+    # If the skip-convert flag wasn't set, convert all files beforehand
+    if [[ "$SC" = false ]]; then
+        # Collect all picture files inside the provided folder
+        local FILES=($IF/*.{png,jpg,jpeg}~$IF/converted_*(N))
+        local LEN=${#FILES[@]}
+
+        # If there is no files, return error
+        if [[ "$LEN" -eq 0 ]]; then
+            _ladislus_utils_error "No images to convert in '$IF'"
+            return 8
+        fi
+
+        for _X in {1..$LEN}; do
+            local FILE="$(basename ${FILES[$_X]})"
+            # Compute the name of the equivalent ZIP file
+            local TARGET="converted_${FILE}"
+
+            # If $TARGET folder already exists, skip
+            [[ -f "$IF/$TARGET" ]] && continue
+
+            _ladislus_utils_print_interactive "[$_X/$LEN] Converting '$FILE'"
+
+            # convert $FILE to normalized format
+            convert "$IF/$FILE" -background white -alpha remove -alpha off "$IF/$TARGET" || return 9;
+        done
+
+        _ladislus_utils_println_interactive "Done converting $LEN file(s)"
+
+        # Collect all converted images
+        local FILES=($IF/converted_*.{png,jpg,jpeg}(N))
+        local LEN=${#FILES[@]}
+    else
+        # Collect all images
+        local FILES=($IF/*.{png,jpg,jpeg}~$IF/converted_*(N))
+        local LEN=${#FILES[@]}
+    fi
+
+    # If there is no files, return error
+    if [[ "$LEN" -eq 0 ]]; then
+        _ladislus_utils_error "No images to merge into a PDF in '$IF'"
+        return 10
+    fi
+
+    # Sort file list by alphabetical order
+    local FILES=(${(on)FILES})
+
+    # Merge images into a single PDF
+    _ladislus_utils_print "Merging $LEN images into '$PDF'"
+    img2pdf -o "$PDF" -s A4 "$FILES[@]" || return 11
+    _ladislus_utils_println " ✓"
+
+    # If we used conversion, remove temporary converted files
+    if [[ "$SC" = false ]]; then
+        _ladislus_utils_print "Removing $LEN temporary file(s)"
+        rm "$FILES[@]"
+        _ladislus_utils_println " ✓"
+    fi
 }

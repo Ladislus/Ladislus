@@ -12,14 +12,14 @@ function _ladislus_wallpaper_random {
     _ladislus_utils_require _ladislus_wallpaper_set || return 1
 
     # Check if there is at most one argument
-    if [ $# -gt 1 ]; then
+    if [[ $# -gt 1 ]]; then
         _ladislus_utils_error "Usage: $0 [wallpaper directory]?"
-        _ladislus_utils_error "Got: $@"
+        _ladislus_utils_error "Got: '$@'"
         return 2
     fi
 
     # Check that $WALLPAPERS env variable is set
-    if [ -z "$WALLPAPERS" ]; then
+    if [[ -z "$WALLPAPERS" ]]; then
         _ladislus_utils_error "Missing env variable \$WALLPAPERS which is default value"
         return 3
     fi
@@ -28,7 +28,7 @@ function _ladislus_wallpaper_random {
     local DIR="${1:-$WALLPAPERS}"
 
     # Check that the provided directory is valid
-    if [ ! -d "$DIR" ]; then
+    if [[ ! -d "$DIR" ]]; then
         _ladislus_utils_error "'$DIR' is not a valid directory"
         return 4
     fi
@@ -37,7 +37,7 @@ function _ladislus_wallpaper_random {
     local WF=($DIR/*.{png,jpg}(N))
 
     # No valid wallpaper file were found
-    if [ "${#WF}" -eq 0 ]; then
+    if [[ "${#WF[@]}" -eq 0 ]]; then
         _ladislus_utils_error "'$DIR' doesn't contain any valid wallpaper"
         return 5
     fi
@@ -47,11 +47,6 @@ function _ladislus_wallpaper_random {
 
     # Set the selected wallpaper
     _ladislus_wallpaper_set "$WS" || return 6
-
-    # unset local variables
-    unset DIR
-    unset WF
-    unset WS
 }
 
 # Function to set a wallpaper
@@ -67,9 +62,9 @@ function _ladislus_wallpaper_set {
     _ladislus_utils_require_multiple _ladislus_wallpaper_set sudo cp || return 1
 
     # Check if there is at most one argument
-    if [ $# -gt 1 ]; then
+    if [[ $# -gt 1 ]]; then
         _ladislus_utils_error "Usage: $0 [wallpaper file]"
-        _ladislus_utils_error "Got: $@"
+        _ladislus_utils_error "Got: '$@'"
         return 2
     fi
 
@@ -77,7 +72,7 @@ function _ladislus_wallpaper_set {
     local W="${1:?"Error: Missing parameter 1"}"
 
     # Check that the provided file is valid
-    if [ ! -f "$W" ]; then
+    if [[ ! -f "$W" ]]; then
         _ladislus_utils_error "'$W' is not a valid file"
         return 3
     fi
@@ -87,7 +82,4 @@ function _ladislus_wallpaper_set {
 
     # Change login wallpaper
     sudo cp "$W" "/usr/share/backgrounds/background.png" || return 5
-
-    # unset local variables
-    unset W
 }

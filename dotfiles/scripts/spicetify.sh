@@ -9,14 +9,14 @@ function _ladislus_spicetify_symlink {
     _ladislus_utils_require ln || return 1
 
     # Check if there is no argument
-    if [ $# -ne 0 ]; then
+    if [[ $# -ne 0 ]]; then
         _ladislus_utils_error "Usage: $0"
-        _ladislus_utils_error "Got: $@"
+        _ladislus_utils_error "Got: '$@'"
         return 2
     fi
 
     # Check that $SPICETIFY env variable is set
-    if [ -z "$SPICETIFY" ]; then
+    if [[ -z "$SPICETIFY" ]]; then
         _ladislus_utils_error "Missing env variable \$SPICETIFY"
         return 3
     fi
@@ -25,20 +25,17 @@ function _ladislus_spicetify_symlink {
     local THEMES="$HOME/.config/spicetify/Themes"
 
     # Assert that spicetify theme folder exists
-    if [ ! -d "$THEMES" ]; then
+    if [[ ! -d "$THEMES" ]]; then
         _ladislus_utils_error "Spicetify theme folder doesn't exist"
         return 4
     fi
 
     # Create symlinks for directories
-    for ELEMENT in $SPICETIFY/*/; do
-        if [[ -d "$ELEMENT" ]]; then
-            ln -s -T "$ELEMENT" "$THEMES/$(basename -- "$ELEMENT")"
+    for _X in $SPICETIFY/*/; do
+        if [[ -d "$_X" ]]; then
+            ln -s -T "$_X" "$THEMES/$(basename -- "$_X")"
         fi
     done
-
-    # unset local variables
-    unset THEMES
 }
 
 # Function that download (or update if already present) spicetify_themes git repository
@@ -53,14 +50,14 @@ function _ladislus_spicetify_download {
     _ladislus_utils_require_multiple git _ladislus_spicetify_symlink _ladislus_spicetify_update || return 1
 
     # Check if there is no argument
-    if [ $# -ne 0 ]; then
+    if [[ $# -ne 0 ]]; then
         _ladislus_utils_error "Usage: $0"
-        _ladislus_utils_error "Got: $@"
+        _ladislus_utils_error "Got: '$@'"
         return 2
     fi
 
     # Check that $SPICETIFY env variable is set
-    if [ -z "$SPICETIFY" ]; then
+    if [[ -z "$SPICETIFY" ]]; then
         _ladislus_utils_error "Missing env variable \$SPICETIFY"
         return 3
     fi
@@ -88,14 +85,14 @@ function _ladislus_spicetify_update {
     _ladislus_utils_require_multiple git _ladislus_spicetify_symlink || return 1
 
     # Check if there is no argument
-    if [ $# -ne 0 ]; then
+    if [[ $# -ne 0 ]]; then
         _ladislus_utils_error "Usage: $0"
-        _ladislus_utils_error "Got: $@"
+        _ladislus_utils_error "Got: '$@'"
         return 2
     fi
 
     # Check that $SPICETIFY env variable is set
-    if [ -z "$SPICETIFY" ]; then
+    if [[ -z "$SPICETIFY" ]]; then
         _ladislus_utils_error "Missing env variable \$SPICETIFY"
         return 3
     fi
@@ -119,9 +116,9 @@ function _ladislus_spicetify_theme {
     _ladislus_utils_require_multiple sudo chmod spicetify || return 1
 
     # Check if there at most one argument
-    if [ $# -gt 1 ]; then
+    if [[ $# -gt 1 ]]; then
         _ladislus_utils_error "Usage: $0 [spicetify theme name]?"
-        _ladislus_utils_error "Got: $@"
+        _ladislus_utils_error "Got: '$@'"
         return 2
     fi
 
@@ -135,7 +132,4 @@ function _ladislus_spicetify_theme {
     spicetify backup apply || return 4
     spicetify config current_theme "$ST" || return 4
     spicetify apply || return 4
-
-    # unset local variables
-    unset ST
 }

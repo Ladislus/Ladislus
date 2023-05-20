@@ -8,9 +8,9 @@ function _ladislus_package_remove {
     _ladislus_utils_require_multiple pamac cut grep || return 1
 
     # Check if there at least one argument
-    if [ $# -eq 0 ]; then
+    if [[ $# -eq 0 ]]; then
         _ladislus_utils_error "Usage: $0 [package name]+"
-        _ladislus_utils_error "Got: $@"
+        _ladislus_utils_error "Got: '$@'"
         return 2
     fi
 
@@ -20,22 +20,18 @@ function _ladislus_package_remove {
     # Initialise list of effectively installed packages to remove
     local TOREMOVE=()
 
-    for P in $@; do
+    for _X in $PARAMS; do
         # Check if the package is installed
-        if [ $(pamac list -i | cut -d' ' -f1 | grep -w "$P") ]; then
+        if [[ $(pamac list -i | cut -d' ' -f1 | grep -w "$_X") ]]; then
             # If so, add to list
-            TOREMOVE+="$P"
+            TOREMOVE+="$_X"
         fi
     done
 
     # If there is packages to remove, remove them with pamac
-    if [[ ! -z "$TOREMOVE" ]]; then
+    if [[ "${#TOREMOVE[@]}" -ne 0 ]]; then
         pamac remove "$TOREMOVE" || return 3
     fi
-
-    # unset local variables
-    unset PARAMS
-    unset TOREMOVE
 }
 
 # Function to launch packages update
@@ -48,9 +44,9 @@ function _ladislus_package_pamac_update {
     _ladislus_utils_require pamac || return 1
 
     # Check if there is no argument
-    if [ $# -ne 0 ]; then
+    if [[ $# -ne 0 ]]; then
         _ladislus_utils_error "Usage: $0"
-        _ladislus_utils_error "Got: $@"
+        _ladislus_utils_error "Got: '$@'"
         return 2
     fi
 
@@ -70,9 +66,9 @@ function _ladislus_package_python_update {
     _ladislus_utils_require_multiple pip pip3 cut tr awk xargs || return 1
 
     # Check if there is no argument
-    if [ $# -ne 0 ]; then
+    if [[ $# -ne 0 ]]; then
         _ladislus_utils_error "Usage: $0"
-        _ladislus_utils_error "Got: $@"
+        _ladislus_utils_error "Got: '$@'"
         return 2
     fi
 
@@ -92,9 +88,9 @@ function _ladislus_package_rust_update {
     _ladislus_utils_require rustup || return 1
 
     # Check if there is no argument
-    if [ $# -ne 0 ]; then
+    if [[ $# -ne 0 ]]; then
         _ladislus_utils_error "Usage: $0"
-        _ladislus_utils_error "Got: $@"
+        _ladislus_utils_error "Got: '$@'"
         return 2
     fi
 
@@ -113,9 +109,9 @@ function _ladislus_package_omz_update {
     _ladislus_utils_require omz || return 1
 
     # Check if there is no argument
-    if [ $# -ne 0 ]; then
+    if [[ $# -ne 0 ]]; then
         _ladislus_utils_error "Usage: $0"
-        _ladislus_utils_error "Got: $@"
+        _ladislus_utils_error "Got: '$@'"
         return 2
     fi
 
@@ -137,9 +133,9 @@ function _ladislus_package_update {
     _ladislus_utils_require_multiple _ladislus_package_pamac_update _ladislus_package_python_update _ladislus_package_rust_update _ladislus_package_omz_update || return 1
 
     # Check if there is no argument
-    if [ $# -ne 0 ]; then
+    if [[ $# -ne 0 ]]; then
         _ladislus_utils_error "Usage: $0"
-        _ladislus_utils_error "Got: $@"
+        _ladislus_utils_error "Got: '$@'"
         return 2
     fi
 

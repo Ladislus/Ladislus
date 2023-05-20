@@ -3,7 +3,7 @@
 #####################
 
 # Assert that $HOME is set
-if [[ -z "$HOME" ]]; then
+if [ -z "$HOME" ]; then
     >&2 echo '$HOME environment variable is empty'
     return 1
 fi
@@ -15,6 +15,7 @@ export SCRIPTS="$DOTFILES/scripts"
 export WALLPAPERS="$DOTFILES/wallpapers"
 export SOUNDPACKS="$DOTFILES/soundpacks"
 export CATPPUCCIN="$HOME/.catppuccin"
+export SPICETIFY="$HOME/.spicetify"
 
 # Create required folders if they don't already exist
 mkdir -p $GIT $CATPPUCCIN
@@ -107,7 +108,7 @@ ssh-keygen -t rsa -b 4096
 
 gpg --full-generate-key
 # TODO: Find way to automatically change in .zshrc
-# POST: Set Signing key in .zshrc 
+# POST: Set Signing key in .zshrc
 # POST: Add keys to Github
 # POST: "gpg --list-secret-keys --keyid-format long" To list GPG keys
 # POST: "gpg --export --armor KEYID" To get the ASCII version of the public key (where KEYID is "sec" section, without the algorithm)
@@ -156,7 +157,7 @@ cp -r $DOTFILES/.config/xfce4 $HOME/.config
 #      SYSTEMCTL    #
 #####################
 
-# Enable bluetooth & docker service 
+# Enable bluetooth & docker service
 sudo systemctl enable --now bluetooth.service
 sudo systemctl enable --now docker.service
 
@@ -234,7 +235,7 @@ fi
 # Prepare python environment
 cd $GTK_GIT
 virtualenv -p python3 venv
-source venv/bin/activate  
+source venv/bin/activate
 pip install -r requirements.txt
 
 # Generate frappe pink variants
@@ -263,7 +264,7 @@ sudo cp -r $HOME/.icons/* /usr/share/icons
 sudo cp -r $HOME/.themes/* /usr/share/themes
 
 # Copy custom config
-sudo cp -r $DOTFILES/lightdm /etc/ 
+sudo cp -r $DOTFILES/lightdm /etc/
 
 #####################
 #       KITTY       #

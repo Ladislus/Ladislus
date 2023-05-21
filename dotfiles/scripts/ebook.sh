@@ -374,9 +374,6 @@ function _ladislus_ebook_generate {
     local FOLDERS=($IF/*(-/N))
     local FOLDER_LEN="${#FOLDERS[@]}"
 
-    # Variable to count how many actual PDFs were generated
-    local GEN_COUNT=0
-
     # Small output formatting to distinguish each pdfy call better
     _ladislus_utils_println
 
@@ -419,13 +416,7 @@ function _ladislus_ebook_generate {
         # Generate the PDF
         _ladislus_ebook_pdfy $([[ "$SC" = true ]] && echo '-s') $([[ "$FORCE" = true ]] && echo '-f') -o "${OF:-$CUR}" "$CUR" || return 10
 
-        # Increase the generation count
-        local GEN_COUNT=$(($GEN_COUNT + 1))
-
         # Small output formatting to distinguish each pdfy call better
         _ladislus_utils_println
     done
-
-    # Display how many PDF were generated
-    _ladislus_utils_println "Genrated $GEN_COUNT PDF(s)"
 }

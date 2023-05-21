@@ -11,6 +11,6 @@ setopt EXTENDED_GLOB
 
 # Source all sh files inside the current directory (except ourself)
 for _X in $(dirname $0)/*.sh~$(dirname $0)/ladislus.sh(N); do
-    echo "Sourcing: $_X"
+    # echo "Sourcing: $_X"
     source "$_X"
 done

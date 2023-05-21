@@ -92,7 +92,7 @@ function _ladislus_ebook_extract_cbz {
     for _X in {1..$LEN}; do
         local FILE="${FILES[$_X]}"
         # Compute the name of folder equivalent to the CBZ file
-        local TARGET="${FILE/.zip/}"
+        local TARGET="${FILE/.cbz/}"
 
         # If $TARGET folder already exists, skip
         [[ -d "$TARGET" ]] && continue

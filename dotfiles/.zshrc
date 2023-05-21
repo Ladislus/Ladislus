@@ -20,7 +20,7 @@ source $ZSH/oh-my-zsh.sh
 # Enable extended wildcards/expension
 setopt EXTENDED_GLOB
 
-# Source custom scripts through
+# Source custom scripts through aggregator
 source $SCRIPTS/ladislus.sh
 
 # Preferred editor for local and remote sessions

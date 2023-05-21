@@ -392,6 +392,9 @@ function _ladislus_ebook_generate {
             local FILES=($CUR/*(N))
             local FILES_LEN="${#FILES[@]}"
 
+            # TODO: Sometimes, folders contains a collection of subfolders (when grouping)
+            #       Find a way to handle that (assert that file names don't collide)
+
             # If the subfolder is empty, display error and skip to the next one
             if [[ "$FILES_LEN" -eq 0 ]]; then
                 _ladislus_utils_error "Folder '$CUR' is empty"

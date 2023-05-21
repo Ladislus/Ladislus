@@ -380,21 +380,27 @@ function _ladislus_ebook_generate {
     # Small output formatting to distinguish each pdfy call better
     _ladislus_utils_println
 
-    for _X in $FOLDERS; do
+    for _X in {1..$FOLDER_LEN}; do
+
+        # Copy current folder to intermediate variable
+        local CUR="${FOLDERS[$_X]}"
+
+        # Small output distinguish each pdfy call better
+        _ladislus_utils_println "[$_X/$FOLDER_LEN] Treating folder '$CUR'"
 
         # While the current folder contains a subfolder (and nothing else),
         # remove this useless subfolder by copying all files inside it into the top folder
         while true; do
             # Collect all files in subfolder & the count
-            local FILES=($_X/*(N))
+            local FILES=($CUR/*(N))
             local FILES_LEN="${#FILES[@]}"
 
             # If the subfolder is empty, display error and skip to the next one
             if [[ "$FILES_LEN" -eq 0 ]]; then
-                _ladislus_utils_error "Folder '$_X' is empty"
+                _ladislus_utils_error "Folder '$CUR' is empty"
 
                 # Small output formatting to distinguish each pdfy call better
-                _ladislus_utils_println "\n"
+                _ladislus_utils_println
 
                 # Skip to next for loop iteration
                 continue 2
@@ -403,7 +409,7 @@ function _ladislus_ebook_generate {
             # Check that the current folder contains only a subfolder
             if [[ "$FILES_LEN" -eq 1 && -d "${FILES[1]}" ]]; then
                 # Move files of the subfolder in the top directory and remove the subfolder
-                (mv ${FILES[1]}/* "$_X" && rm -rf "${FILES[1]}") || return 9
+                (mv ${FILES[1]}/* "$CUR" && rm -rf "${FILES[1]}") || return 9
             else
                 # The "subfolder cleaning" is done, we can generate the PDF
                 break
@@ -411,13 +417,13 @@ function _ladislus_ebook_generate {
         done
 
         # Generate the PDF
-        _ladislus_ebook_pdfy $([[ "$SC" = true ]] && echo '-s') $([[ "$FORCE" = true ]] && echo '-f') -o "${OF:-$_X}" "$_X" || return 10
+        _ladislus_ebook_pdfy $([[ "$SC" = true ]] && echo '-s') $([[ "$FORCE" = true ]] && echo '-f') -o "${OF:-$CUR}" "$CUR" || return 10
 
         # Increase the generation count
         local GEN_COUNT=$(($GEN_COUNT + 1))
 
         # Small output formatting to distinguish each pdfy call better
-        _ladislus_utils_println "\n"
+        _ladislus_utils_println
     done
 
     # Display how many PDF were generated

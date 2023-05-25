@@ -1,13 +1,13 @@
 export ZSH="$HOME/.oh-my-zsh"
 
 # Custom environment variables
+export CATPPUCCIN="$HOME/.catppuccin"
+export SPICETIFY=$HOME/.spicetify
 export GIT="$HOME/Git"
 export DOTFILES="$GIT/Ladislus/dotfiles"
 export SCRIPTS="$DOTFILES/scripts"
 export WALLPAPERS="$DOTFILES/wallpapers"
 export SOUNDPACKS="$DOTFILES/soundpacks"
-export CATPPUCCIN="$HOME/.catppuccin"
-export SPICETIFY="$HOME/.spicetify"
 
 # OMZ Config
 ZSH_THEME="agnoster"
@@ -15,16 +15,16 @@ ENABLE_CORRECTION="true"
 COMPLETION_WAITING_DOTS="true"
 plugins=(git branch colored-man-pages sudo z zsh-syntax-highlighting)
 
-source $ZSH/oh-my-zsh.sh
+source "$ZSH/oh-my-zsh.sh"
 
 # Enable extended wildcards/expension
 setopt EXTENDED_GLOB
 
 # Source custom scripts through aggregator
-source $SCRIPTS/ladislus.sh
+source "$SCRIPTS/ladislus.sh"
 
 # Preferred editor for local and remote sessions
-if [[ -n $SSH_CONNECTION ]]; then
+if [[ -n "$SSH_CONNECTION" ]]; then
   export EDITOR='code'
 else
   export EDITOR='vim'
@@ -45,7 +45,7 @@ git config --global alias.cr 'clone --recursive'
 git config --global alias.su 'submodule update --init --recursive'
 
 # Direct GPG TTY to the current TTY (as sometimes it can't ask for passphrase)
-export GPG_TTY=$(tty)
+export GPG_TTY="$(tty)"
 
 # Aliases
 alias ls='ls -Alhtr --color=auto'

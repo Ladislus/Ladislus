@@ -12,7 +12,7 @@ function _ladislus_wallpaper_random {
     _ladislus_utils_require _ladislus_wallpaper_set || return 1
 
     # Check if there is at most one argument
-    if [[ $# -gt 1 ]]; then
+    if [[ "$#" -gt 1 ]]; then
         _ladislus_utils_error "Usage: $0 [wallpaper directory]?"
         _ladislus_utils_error "Got: '$@'"
         return 2
@@ -25,7 +25,7 @@ function _ladislus_wallpaper_random {
     fi
 
     # Copy first parameter to a local variable, or use default
-    local DIR="${1:-$WALLPAPERS}"
+    local DIR="${1:-"$WALLPAPERS"}"
 
     # Check that the provided directory is valid
     if [[ ! -d "$DIR" ]]; then
@@ -43,7 +43,7 @@ function _ladislus_wallpaper_random {
     fi
 
     # Select one wallpaper at random from the wallpaper files
-    local WS=${WF[ $(($RANDOM % ${#WF[@]} + 1)) ]}
+    local WS="${WF[ $(("$RANDOM" % "${#WF[@]}" + 1)) ]}"
 
     # Set the selected wallpaper
     _ladislus_wallpaper_set "$WS" || return 6
@@ -62,7 +62,7 @@ function _ladislus_wallpaper_set {
     _ladislus_utils_require_multiple _ladislus_wallpaper_set sudo cp || return 1
 
     # Check if there is at most one argument
-    if [[ $# -gt 1 ]]; then
+    if [[ "$#" -gt 1 ]]; then
         _ladislus_utils_error "Usage: $0 [wallpaper file]"
         _ladislus_utils_error "Got: '$@'"
         return 2

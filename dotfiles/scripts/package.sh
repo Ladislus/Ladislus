@@ -8,7 +8,7 @@ function _ladislus_package_remove {
     _ladislus_utils_require_multiple pamac cut grep || return 1
 
     # Check if there at least one argument
-    if [[ $# -eq 0 ]]; then
+    if [[ "$#" -eq 0 ]]; then
         _ladislus_utils_error "Usage: $0 [package name]+"
         _ladislus_utils_error "Got: '$@'"
         return 2
@@ -30,7 +30,7 @@ function _ladislus_package_remove {
 
     # If there is packages to remove, remove them with pamac
     if [[ "${#TOREMOVE[@]}" -ne 0 ]]; then
-        pamac remove "$TOREMOVE" || return 3
+        pamac remove "$TOREMOVE[@]" || return 3
     fi
 }
 
@@ -38,13 +38,12 @@ function _ladislus_package_remove {
 # [REQ] pip pip3 cut tr awk xargs
 # [ERR] (1) Missing required program
 #       (2) Too many parameters
-#       (3) Pamac update failed
 function _ladislus_package_pamac_update {
     # Assert that required programs are available
     _ladislus_utils_require pamac || return 1
 
     # Check if there is no argument
-    if [[ $# -ne 0 ]]; then
+    if [[ "$#" -ne 0 ]]; then
         _ladislus_utils_error "Usage: $0"
         _ladislus_utils_error "Got: '$@'"
         return 2
@@ -52,8 +51,11 @@ function _ladislus_package_pamac_update {
 
     # Launch pip update
     _ladislus_utils_println "\n\t\t### Packages ###\n"
-    pamac update --no-confirm || return 3
-    pamac remove -o --no-confirm || return 3
+    pamac update --no-confirm
+    pamac remove -o --no-confirm
+
+    # Pamac returns 1 in case of "nothing to do", so need to override the return value
+    return 0
 }
 
 # Function to launch Python update
@@ -66,7 +68,7 @@ function _ladislus_package_python_update {
     _ladislus_utils_require_multiple pip pip3 cut tr awk xargs || return 1
 
     # Check if there is no argument
-    if [[ $# -ne 0 ]]; then
+    if [[ "$#" -ne 0 ]]; then
         _ladislus_utils_error "Usage: $0"
         _ladislus_utils_error "Got: '$@'"
         return 2
@@ -88,7 +90,7 @@ function _ladislus_package_rust_update {
     _ladislus_utils_require rustup || return 1
 
     # Check if there is no argument
-    if [[ $# -ne 0 ]]; then
+    if [[ "$#" -ne 0 ]]; then
         _ladislus_utils_error "Usage: $0"
         _ladislus_utils_error "Got: '$@'"
         return 2
@@ -109,7 +111,7 @@ function _ladislus_package_omz_update {
     _ladislus_utils_require omz || return 1
 
     # Check if there is no argument
-    if [[ $# -ne 0 ]]; then
+    if [[ "$#" -ne 0 ]]; then
         _ladislus_utils_error "Usage: $0"
         _ladislus_utils_error "Got: '$@'"
         return 2
@@ -133,15 +135,15 @@ function _ladislus_package_update {
     _ladislus_utils_require_multiple _ladislus_package_pamac_update _ladislus_package_python_update _ladislus_package_rust_update _ladislus_package_omz_update || return 1
 
     # Check if there is no argument
-    if [[ $# -ne 0 ]]; then
+    if [[ "$#" -ne 0 ]]; then
         _ladislus_utils_error "Usage: $0"
         _ladislus_utils_error "Got: '$@'"
         return 2
     fi
 
     # Launch updates
-    _ladislus_package_pamac_update || return 3
-    _ladislus_package_python_update || return 4
-    _ladislus_package_rust_update || return 5
-    _ladislus_package_omz_update || return 6
+    _ladislus_package_pamac_update || (_ladislus_utils_error "Pamac update failed with code: '$?'" && return 3)
+    _ladislus_package_python_update || (_ladislus_utils_error "Python update failed with code: '$?'" && return 4)
+    _ladislus_package_rust_update || (_ladislus_utils_error "Rust update failed with code: '$?'" && return 5)
+    _ladislus_package_omz_update || (_ladislus_utils_error "OMZ update failed with code: '$?'" && return 6)
 }

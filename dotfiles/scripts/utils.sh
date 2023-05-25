@@ -8,7 +8,7 @@
 #       (2) Missing required program
 function _ladislus_utils_require {
     # Check if there is exactly one argument
-    if [[ $# -ne 1 ]]; then
+    if [[ "$#" -ne 1 ]]; then
         _ladislus_utils_error "Usage: $0 [command to test]"
         _ladislus_utils_error "Got: '$@'"
         return 1
@@ -30,7 +30,7 @@ function _ladislus_utils_require {
 #       (2) Missing required program
 function _ladislus_utils_require_multiple {
     # Check that at least one parameter was provided
-    if [[ $# -eq 0 ]]; then
+    if [[ "$#" -eq 0 ]]; then
         _ladislus_utils_error "Usage: $0 [command to test]+"
         _ladislus_utils_error "Got: '$@'"
         return 1

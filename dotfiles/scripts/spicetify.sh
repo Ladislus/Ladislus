@@ -9,7 +9,7 @@ function _ladislus_spicetify_symlink {
     _ladislus_utils_require ln || return 1
 
     # Check if there is no argument
-    if [[ $# -ne 0 ]]; then
+    if [[ "$#" -ne 0 ]]; then
         _ladislus_utils_error "Usage: $0"
         _ladislus_utils_error "Got: '$@'"
         return 2
@@ -31,10 +31,8 @@ function _ladislus_spicetify_symlink {
     fi
 
     # Create symlinks for directories
-    for _X in $SPICETIFY/*/; do
-        if [[ -d "$_X" ]]; then
-            ln -s -T "$_X" "$THEMES/$(basename -- "$_X")"
-        fi
+    for _X in $SPICETIFY/*(-/N); do
+        ln -s -T "$_X" "$THEMES/$(basename "$_X")"
     done
 }
 
@@ -50,7 +48,7 @@ function _ladislus_spicetify_download {
     _ladislus_utils_require_multiple git _ladislus_spicetify_symlink _ladislus_spicetify_update || return 1
 
     # Check if there is no argument
-    if [[ $# -ne 0 ]]; then
+    if [[ "$#" -ne 0 ]]; then
         _ladislus_utils_error "Usage: $0"
         _ladislus_utils_error "Got: '$@'"
         return 2
@@ -64,7 +62,7 @@ function _ladislus_spicetify_download {
 
     # If the git repository doesn't exist, clone it
     if [[ ! -d "$SPICETIFY" ]]; then
-        git -C "$HOME" clone https://github.com/morpheusthewhite/spicetify-themes "$SPICETIFY"
+        git -C "$HOME" clone "https://github.com/morpheusthewhite/spicetify-themes" "$SPICETIFY"
         _ladislus_spicetify_symlink || return 4
     else
         # Else, update it
@@ -85,7 +83,7 @@ function _ladislus_spicetify_update {
     _ladislus_utils_require_multiple git _ladislus_spicetify_symlink || return 1
 
     # Check if there is no argument
-    if [[ $# -ne 0 ]]; then
+    if [[ "$#" -ne 0 ]]; then
         _ladislus_utils_error "Usage: $0"
         _ladislus_utils_error "Got: '$@'"
         return 2
@@ -101,7 +99,7 @@ function _ladislus_spicetify_update {
     git -C "$SPICETIFY" pull || return 4
 
     # Reset symlinks
-    rm -f "$HOME/.config/spicetify/Themes/*"
+    rm -f $HOME/.config/spicetify/Themes/*(@)
     _ladislus_spicetify_symlink || return 5
 }
 
@@ -116,14 +114,14 @@ function _ladislus_spicetify_theme {
     _ladislus_utils_require_multiple sudo chmod spicetify || return 1
 
     # Check if there at most one argument
-    if [[ $# -gt 1 ]]; then
+    if [[ "$#" -gt 1 ]]; then
         _ladislus_utils_error "Usage: $0 [spicetify theme name]?"
         _ladislus_utils_error "Got: '$@'"
         return 2
     fi
 
     # If no parameter is provided, default to "BurntSierra"
-    local ST="${1:-BurntSienna}"
+    local ST="${1:-"BurntSienna"}"
 
     # Set permissions to change spotify look
     sudo chmod a+wr /opt/spotify -R || return 3

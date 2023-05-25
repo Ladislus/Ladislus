@@ -14,7 +14,7 @@ function _ladislus_path_absolute_path {
     _ladislus_utils_require_multiple dirname realpath || return 1
 
     # Check if there is exactly one argument
-    if [[ $# -ne 1 ]]; then
+    if [[ "$#" -ne 1 ]]; then
         _ladislus_utils_error "Usage: $0 [path to file or directory]"
         _ladislus_utils_error "Got: '$@'"
         return 2
@@ -25,7 +25,7 @@ function _ladislus_path_absolute_path {
 
     # If IP is a file, take the name of it's parent directory
     if [[ -f "$IP" ]]; then
-        local IP="$(dirname $IP)"
+        local IP="$(dirname "$IP")"
     else
         # If it's not a file, check that it's at least a valid directory
         if [[ ! -d "$IP" ]]; then
@@ -35,7 +35,7 @@ function _ladislus_path_absolute_path {
     fi
 
     # return the absolute path to STDOUT
-    echo "$(realpath $IP)"
+    echo "$(realpath "$IP")"
 }
 
 # Function to extract the filename (without extension) for a given path
@@ -50,7 +50,7 @@ function _ladislus_path_filename {
     _ladislus_utils_require basename || return 1
 
     # Check if there is exactly one argument
-    if [[ $# -ne 1 ]]; then
+    if [[ "$#" -ne 1 ]]; then
         _ladislus_utils_error "Usage: $0 [path to file]"
         _ladislus_utils_error "Got: '$@'"
         return 2
@@ -66,7 +66,7 @@ function _ladislus_path_filename {
     fi
 
     # return the filename to STDOUT
-    echo "${$(basename $IF)#*.}"
+    echo "${$(basename "$IF")#*.}"
 }
 
 # Function to extract the extension (without leading '.') for a given path
@@ -81,7 +81,7 @@ function _ladislus_path_extension {
     _ladislus_utils_require basename || return 1
 
     # Check if there is exactly one argument
-    if [[ $# -ne 1 ]]; then
+    if [[ "$#" -ne 1 ]]; then
         _ladislus_utils_error "Usage: $0 [path to file]"
         _ladislus_utils_error "Got: '$@'"
         return 2
@@ -97,7 +97,7 @@ function _ladislus_path_extension {
     fi
 
     # return the extension to STDOUT
-    echo "${$(basename $IF)%%.*}"
+    echo "${$(basename "$IF")%%.*}"
 }
 
 # Function to create a copy of a given file with a new extension
@@ -116,7 +116,7 @@ function _ladislus_path_change_extension {
     _ladislus_utils_require_multiple _ladislus_path_absolute_path _ladislus_path_filename _ladislus_path_extension cp || return 1
 
     # Check if there is exactly two argument
-    if [[ $# -ne 2 ]]; then
+    if [[ "$#" -ne 2 ]]; then
         _ladislus_utils_error "Usage: $0 [path to file] [new extension]"
         _ladislus_utils_error "Got: '$@'"
         return 2
@@ -166,14 +166,14 @@ function _ladislus_path_change_extension {
 #       (2) Path is invalid
 function _ladislus_path_exists {
     # Check if there is exactly one argument
-    if [[ $# -ne 1 ]]; then
+    if [[ "$#" -ne 1 ]]; then
         _ladislus_utils_error "Usage: $0 [path to test]"
         _ladislus_utils_error "Got: '$@'"
         return 1
     fi
 
     # Check that path exists (at all, whatever it might be)
-    [[ -e "${1:?"Error: Missing parameter 1"}" ]] && return 0 || return 2
+    ([[ -e "${1:?"Error: Missing parameter 1"}" ]] && return 0) || return 2
 }
 
 # Function to check if path is valid file
@@ -182,14 +182,14 @@ function _ladislus_path_exists {
 #       (2) Path is invalid
 function _ladislus_path_is_file {
     # Check if there is exactly one argument
-    if [[ $# -ne 1 ]]; then
+    if [[ "$#" -ne 1 ]]; then
         _ladislus_utils_error "Usage: $0 [path to test]"
         _ladislus_utils_error "Got: '$@'"
         return 1
     fi
 
     # Check that path exists and is a regular file
-    [[ -f "${1:?"Error: Missing parameter 1"}" ]] && return 0 || return 2
+    ([[ -f "${1:?"Error: Missing parameter 1"}" ]] && return 0) || return 2
 }
 
 # Function to check if path is valid folder
@@ -198,14 +198,14 @@ function _ladislus_path_is_file {
 #       (2) Path is invalid
 function _ladislus_path_is_directory {
     # Check if there is exactly one argument
-    if [[ $# -ne 1 ]]; then
+    if [[ "$#" -ne 1 ]]; then
         _ladislus_utils_error "Usage: $0 [path to test]"
         _ladislus_utils_error "Got: '$@'"
         return 1
     fi
 
     # Check that path exists and is a directory
-    [[ -d "${1:?"Error: Missing parameter 1"}" ]] && return 0 || return 2
+    ([[ -d "${1:?"Error: Missing parameter 1"}" ]] && return 0) || return 2
 }
 
 ####################################################
@@ -218,7 +218,7 @@ function _ladislus_path_is_directory {
 #       (2) The value is already present in path
 function _ladislus_path_add {
     # Check if there is exactly one argument
-    if [[ $# -ne 1 ]]; then
+    if [[ "$#" -ne 1 ]]; then
         _ladislus_utils_error "Usage: $0 [value to add to \$PATH]"
         _ladislus_utils_error "Got: '$@'"
         return 1

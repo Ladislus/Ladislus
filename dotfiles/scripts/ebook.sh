@@ -10,7 +10,7 @@ function _ladislus_ebook_extract_zip {
     _ladislus_utils_require_multiple basename unzip || return 1
 
     # Check if there one argument
-    if [[ $# -ne 1 ]]; then
+    if [[ "$#" -ne 1 ]]; then
         _ladislus_utils_error "Usage: $0 [folder containing the ZIP files]"
         _ladislus_utils_error "Got: '$@'"
         return 2
@@ -27,7 +27,7 @@ function _ladislus_ebook_extract_zip {
 
     # Collect all CBZ files inside the provided folder
     local FILES=($IF/*.zip(N))
-    local LEN=${#FILES[@]}
+    local LEN="${#FILES[@]}"
 
     # If there is no files, return error
     if [[ "$LEN" -eq 0 ]]; then
@@ -43,7 +43,7 @@ function _ladislus_ebook_extract_zip {
         # If $TARGET folder already exists, skip
         [[ -d "$TARGET" ]] && continue
 
-        _ladislus_utils_print_interactive "[$_X/$LEN] Unzipping '$(basename $FILE)'"
+        _ladislus_utils_print_interactive "[$_X/$LEN] Unzipping '$(basename "$FILE")'"
 
         # unzip $FILE zip into a folder with the same name, or return error on failure
         unzip "$FILE" -d "$TARGET" > /dev/null || return 4
@@ -64,7 +64,7 @@ function _ladislus_ebook_extract_cbz {
     _ladislus_utils_require_multiple basename 7z || return 1
 
     # Check if there one argument
-    if [[ $# -ne 1 ]]; then
+    if [[ "$#" -ne 1 ]]; then
         _ladislus_utils_error "Usage: $0 [folder containing the CBZ files]"
         _ladislus_utils_error "Got: '$@'"
         return 2
@@ -81,7 +81,7 @@ function _ladislus_ebook_extract_cbz {
 
     # Collect all CBZ files inside the provided folder
     local FILES=($IF/*.cbz(N))
-    local LEN=${#FILES[@]}
+    local LEN="${#FILES[@]}"
 
     # If there is no files, early return
     if [[ "$LEN" -eq 0 ]]; then
@@ -97,7 +97,7 @@ function _ladislus_ebook_extract_cbz {
         # If $TARGET folder already exists, skip
         [[ -d "$TARGET" ]] && continue
 
-        _ladislus_utils_print_interactive "[$_X/$LEN] Unzipping '$(basename $FILE)'"
+        _ladislus_utils_print_interactive "[$_X/$LEN] Unzipping '$(basename "$FILE")'"
 
         # use 7z to unzip $FILE cbz into a folder with the same name, or return error on failure
         7z x "$FILE" -o"$TARGET" > /dev/null || return 4
@@ -129,10 +129,10 @@ function _ladislus_ebook_pdfy {
     _ladislus_utils_require_multiple getopt convert basename img2pdf rm || return 1
 
     # For some reason, assigning to local variable override the return code of 'getopt', so we can't trap invalid options
-    _X=$(getopt -o hso:f -l help,skip-convert,output:,force -n "$0" -- "$@")
+    _X="$(getopt -o hso:f -l help,skip-convert,output:,force -n "$0" -- "$@")"
 
     # If getopt failed, return error
-    if [[ $? -ne 0 ]]; then
+    if [[ "$?" -ne 0 ]]; then
         _ladislus_utils_error "getopt failed"
         return 2
     fi
@@ -176,7 +176,7 @@ function _ladislus_ebook_pdfy {
     done
 
     # Check if there one argument
-    if [[ $# -ne 1 ]]; then
+    if [[ "$#" -ne 1 ]]; then
         _ladislus_utils_error "$USAGE"
         _ladislus_utils_error "Got: '$_X'"
         return 4
@@ -185,7 +185,7 @@ function _ladislus_ebook_pdfy {
     # Copy input folder path to local variable, removing trailing '/' if present
     local IF="${${1:?"Error: Missing parameter 1"}%/}"
     # Copy output folder path to local variable, removing trailing '/' if present, or defaulting to $IF
-    local OF="${${OF%/}:-$IF}"
+    local OF="${${OF%/}:-"$IF"}"
 
     # Assert that the input folder is valid
     if [[ ! -d "$IF" ]]; then
@@ -200,7 +200,7 @@ function _ladislus_ebook_pdfy {
     fi
 
     # Compute PDF name and path
-    local PDF="$OF/$(basename $IF).pdf"
+    local PDF="$OF/$(basename "$IF").pdf"
 
     #
     if [[ "$FORCE" = false && -f "$PDF" ]]; then
@@ -219,7 +219,7 @@ function _ladislus_ebook_pdfy {
     if [[ "$SC" = false ]]; then
         # Collect all picture files inside the provided folder
         local FILES=($IF/*.{png,jpg,jpeg}~$IF/converted_*(N))
-        local LEN=${#FILES[@]}
+        local LEN="${#FILES[@]}"
 
         # If there is no files, return error
         if [[ "$LEN" -eq 0 ]]; then
@@ -228,9 +228,9 @@ function _ladislus_ebook_pdfy {
         fi
 
         for _X in {1..$LEN}; do
-            local FILE="$(basename ${FILES[$_X]})"
+            local FILE="$(basename "$FILES[$_X]")"
             # Compute the name of the equivalent ZIP file
-            local TARGET="converted_${FILE}"
+            local TARGET="converted_$FILE"
 
             # If $TARGET folder already exists, skip
             [[ -f "$IF/$TARGET" ]] && continue
@@ -245,11 +245,11 @@ function _ladislus_ebook_pdfy {
 
         # Collect all converted images
         local FILES=($IF/converted_*.{png,jpg,jpeg}(N))
-        local LEN=${#FILES[@]}
+        local LEN="${#FILES[@]}"
     else
         # Collect all images
         local FILES=($IF/*.{png,jpg,jpeg}~$IF/converted_*(N))
-        local LEN=${#FILES[@]}
+        local LEN="${#FILES[@]}"
     fi
 
     # If there is no files, return error
@@ -295,10 +295,10 @@ function _ladislus_ebook_generate {
     _ladislus_utils_require_multiple getopt basename mv rm _ladislus_ebook_pdfy || return 1
 
     # For some reason, assigning to local variable override the return code of 'getopt', so we can't trap invalid options
-    _X=$(getopt -o hso:f -l help,skip-convert,output:,force -n "$0" -- "$@")
+    _X="$(getopt -o hso:f -l help,skip-convert,output:,force -n "$0" -- "$@")"
 
     # If getopt failed, return error
-    if [[ $? -ne 0 ]]; then
+    if [[ "$?" -ne 0 ]]; then
         _ladislus_utils_error "getopt failed"
         return 2
     fi
@@ -342,7 +342,7 @@ function _ladislus_ebook_generate {
     done
 
     # Check if there one argument
-    if [[ $# -ne 1 ]]; then
+    if [[ "$#" -ne 1 ]]; then
         _ladislus_utils_error "$USAGE"
         _ladislus_utils_error "Got: '$@'"
         return 4
@@ -409,7 +409,7 @@ function _ladislus_ebook_generate {
             # Check that the current folder contains only a subfolder
             if [[ "$FILES_LEN" -eq 1 && -d "${FILES[1]}" ]]; then
                 # Move files of the subfolder in the top directory and remove the subfolder
-                (mv ${FILES[1]}/* "$CUR" && rm -rf "${FILES[1]}") || return 9
+                (mv "${FILES[1]}/*" "$CUR" && rm -rf "${FILES[1]}") || return 9
             else
                 # The "subfolder cleaning" is done, we can generate the PDF
                 break

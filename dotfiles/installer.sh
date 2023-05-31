@@ -3,40 +3,37 @@
 #####################
 
 # Assert that $HOME is set
-if [ -z "$HOME" ]; then
-    >&2 echo '$HOME environment variable is empty'
+if [[ -z "$HOME" ]]; then
+    >&2 echo "\$HOME environment variable is empty"
     return 1
 fi
 
 # Set environment variable
+export CATPPUCCIN="$HOME/.catppuccin"
+export SPICETIFY="$HOME/.spicetify"
 export GIT="$HOME/Git"
 export DOTFILES="$GIT/Ladislus/dotfiles"
 export SCRIPTS="$DOTFILES/scripts"
 export WALLPAPERS="$DOTFILES/wallpapers"
 export SOUNDPACKS="$DOTFILES/soundpacks"
-export CATPPUCCIN="$HOME/.catppuccin"
-export SPICETIFY="$HOME/.spicetify"
 
 # Create required folders if they don't already exist
-mkdir -p $GIT $CATPPUCCIN
+mkdir -p "$GIT" "$CATPPUCCIN"
 
 # Check that dotfile folder exists
-if [[ ! -d "${DOTFILES}" ]]; then
+if [[ ! -d "$DOTFILES" ]]; then
     echo "Dotfiles missing, cloning it"
-    git -C $GIT clone https://github.com/Ladislus/Ladislus.git
+    git -C "$GIT" clone "https://github.com/Ladislus/Ladislus.git"
 
-    # If cloning the repository didn't fix the missing folder, this means the 'dotfiles' subfolder was probably renamed
-    if [[ ! -d "${DOTFILES}" ]]; then
+    # If cloning the repository didn't fix the missing folder, this means the 'dotfiles' subfolder in the git repository was probably renamed
+    if [[ ! -d "$DOTFILES" ]]; then
         >&2 echo "Cloning dotfiles repository didn't fix it, something is wrong, aborting"
         return 1
     fi
 fi
 
 # Source script as they contains usefull functions
-for FILE in $SCRIPTS/*.sh; do
-    echo "Sourcing file $FILE"
-    source $FILE
-done
+source "$SCRIPTS/ladislus.sh" || return 1
 
 #####################
 #     PACKAGES      #
@@ -50,7 +47,7 @@ sudo sed -Ei '/EnableAUR/s/^#//' /etc/pamac.conf
 
 # Clean i3 default unwanted application
 TOREMOVE=(i3exit i3lock mousepad conky kvantum kvantum-manjaro xautolock i3status-manjaro moc manjaro-i3-settings palemoon-bin epdfview xterm urxvt-perls manjaro-ranger-settings ranger dmenu-manjaro morc_menu bmenu pcmanfm polkit-gnome)
-_ladislus_package_remove $TOREMOVE
+_ladislus_package_remove "${TOREMOVE[@]}"
 
 unset TOREMOVE
 
@@ -69,8 +66,7 @@ PACKAGES+=(python3 python-pip)
 PACKAGES+=(jdk8-openjdk jre8-openjdk jdk11-openjdk jre11-openjdk kotlin)
 PACKAGES+=(rustup)
 
-echo "All packages: ${PACKAGES}"
-pamac install --no-confirm $PACKAGES
+pamac install --no-confirm "${PACKAGES[@]}"
 
 unset PACKAGES
 
@@ -81,31 +77,31 @@ pamac remove -o --no-confirm
 #        ZSH        #
 #####################
 
-if [[ ! -d "$HOME/.oh-my-zsh" ]];
-then
-
+# If not already installed, install OhMyZsh
+if [[ ! -d "$HOME/.oh-my-zsh" ]]; then
     # Install OhMyZsh
-    sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+    sh -c "$(wget -O- "https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh")"
 
     # Set ZSH as default
-    chsh -s $(which zsh)
-    sudo chsh -s $(which zsh)
+    chsh -s "$(which zsh)"
+    sudo chsh -s "$(which zsh)"
 
     # Set config and load it
-    cat $DOTFILES/.zshrc > $HOME/.zshrc
-    source $HOME/.zshrc
+    cat "$DOTFILES/.zshrc" > "$HOME/.zshrc"
+    source "$HOME/.zshrc"
 
     # Install Zsh-syntax-highlight plugin
-    git -C $ZSH/plugins/ clone https://github.com/zsh-users/zsh-syntax-highlighting.git
-
+    git -C "$ZSH/plugins" clone "https://github.com/zsh-users/zsh-syntax-highlighting.git"
 fi
 
 #####################
 #       KEYS        #
 #####################
 
+# Generate SSH key
 ssh-keygen -t rsa -b 4096
 
+# Generate GPG key
 gpg --full-generate-key
 # TODO: Find way to automatically change in .zshrc
 # POST: Set Signing key in .zshrc
@@ -137,8 +133,8 @@ rustup -V
 
 # Install Code extensions via extension IDs
 EXTENSIONS=(Catppuccin.catppuccin-vsc ms-python.python PKief.material-icon-theme rust-lang.rust-analyzer)
-for EXTENSION in $EXTENSIONS; do
-    code --install-extension $EXTENSION
+for _X in $EXTENSIONS; do
+    code --install-extension "$_X"
 done
 
 unset EXTENSIONS
@@ -179,16 +175,16 @@ pulse_install
 #####################
 
 # Copy custom icons
-cp -r $DOTFILES/.icons $HOME
+cp -r "$DOTFILES/.icons" "$HOME"
 # Remove icons folder in .local to prevent default icons
-rm -rf $HOME/.local/share/icons
+rm -rf "$HOME/.local/share/icons"
 
 #####################
 #       FONTS       #
 #####################
 
 # Copy custom fonts
-cp -r $DOTFILES/.fonts $HOME
+cp -r "$DOTFILES/.fonts" "$HOME"
 # Reload font cache
 fc-cache -fv
 
@@ -200,16 +196,16 @@ QT_THEMES="$HOME/.config/qt5ct/colors/"
 QT_GIT="$CATPPUCCIN/qt5ct"
 
 # Clone Catppuccin theme for Rofi
-if [[ ! -d "${QT_GIT}" ]]; then
-    git -C $CATPPUCCIN clone https://github.com/Catppuccin/qt5ct.git
+if [[ ! -d "$QT_GIT" ]]; then
+    git -C "$CATPPUCCIN" clone "https://github.com/Catppuccin/qt5ct.git"
 fi
 
 # Create required folders
-mkdir -p $QT_THEMES
+mkdir -p "$QT_THEMES"
 
 # Create symlink for Catppuccin theme inside qt5ct themes
-for FILE in $QT_GIT/themes/*.conf; do
-    ln -s -T $FILE $QT_THEMES/$(basename -- $FILE)
+for _X in $QT_GIT/themes/*.conf; do
+    ln -s -T "$_X" "$QT_THEMES/$(basename "$_X")"
 done
 
 cp $DOTFILES/.config/qt5ct/qt5ct.conf $HOME/.config/qt5ct
@@ -225,11 +221,11 @@ GTK_THEMES="$HOME/.themes"
 GTK_GIT="$CATPPUCCIN/gtk"
 
 # Create required folders
-mkdir -p $GTK_THEMES
+mkdir -p "$GTK_THEMES"
 
 # Clone Catppuccin theme for Rofi
-if [[ ! -d "${GTK_GIT}" ]]; then
-    git -C $CATPPUCCIN clone https://github.com/Catppuccin/gtk.git
+if [[ ! -d "$GTK_GIT" ]]; then
+    git -C "$CATPPUCCIN" clone "https://github.com/Catppuccin/gtk.git"
 fi
 
 # Prepare python environment
@@ -239,7 +235,7 @@ source venv/bin/activate
 pip install -r requirements.txt
 
 # Generate frappe pink variants
-python install.py frappe -a flamingo --tweaks rimless -d $GTK_THEMES
+python install.py frappe -a flamingo --tweaks rimless -d "$GTK_THEMES"
 
 # deactivate python env
 deactivate
@@ -250,7 +246,7 @@ cp -r $DOTFILES/.config/gtk-{2,3}.0 $HOME/.config
 cp $DOTFILES/.config/.gtkrc-2.0.mine $HOME/.config
 
 # Source custom gtk config inside .gtkrc file (only for GTK2)
-echo "include \"$HOME/.config/.gtkrc-2.0.mine\"" > $HOME/.gtkrc-2.0
+echo "include \"$HOME/.config/.gtkrc-2.0.mine\"" > "$HOME/.gtkrc-2.0"
 
 unset GTK_THEMES
 unset GTK_GIT
@@ -311,15 +307,15 @@ mkdir -p $HOME/$ROFI_THEMES
 
 # Create symlink for Catppuccin theme inside Rofi themes
 for FILE in $ROFI_GIT/basic/$ROFI_THEMES/*; do
-    ln -s -T $FILE $HOME/$ROFI_THEMES/$(basename -- $FILE)
+    ln -s -T "$FILE" "$HOME/$ROFI_THEMES/$(basename "$FILE")"
 done
 
 # Copy custom rofi config
-cp -r $DOTFILES/.config/rofi $HOME/.config
+cp -r "$DOTFILES/.config/rofi" "$HOME/.config"
 
 # Bonus rofi themes
-git -C /tmp clone https://github.com/newmanls/rofi-themes-collection
-cp /tmp/rofi-themes-collection/themes/*.rasi $HOME/$ROFI_THEMES/
+git -C "/tmp" clone "https://github.com/newmanls/rofi-themes-collection"
+cp /tmp/rofi-themes-collection/themes/*.rasi "$HOME/$ROFI_THEMES"
 
 unset ROFI_THEMES
 unset ROFI_GIT
@@ -393,7 +389,7 @@ DISCORD_THEMES="$HOME/.config/BetterDiscord/themes"
 DISCORD_GIT="$CATPPUCCIN/discord"
 
 # Clone Catppuccin theme for Rofi
-if [[ ! -d "${DISCORD_GIT}" ]]; then
+if [[ ! -d "$DISCORD_GIT" ]]; then
     git -C $CATPPUCCIN clone https://github.com/Catppuccin/discord.git
 fi
 
@@ -431,7 +427,7 @@ _ladislus_spicetify_theme
 #        GIT        #
 #####################
 
-wget -P $GIT https://gist.githubusercontent.com/Ladislus/cedb8a5107d591ea308b23beb40e647b/raw/GithubFetchAll.py
+wget -P "$GIT" "https://gist.githubusercontent.com/Ladislus/cedb8a5107d591ea308b23beb40e647b/raw/GithubFetchAll.py"
 # POST: execute fetchall (can't use without adding SSH key before)
 
 #####################
@@ -448,7 +444,7 @@ YTDLP_GIT="$GIT/yt-dlp"
 
 # If yt-dlp is not cloned, clone it
 if [[ ! -d "$YTDLP_GIT" ]]; then
-    git -C $GIT clone https://github.com/yt-dlp/yt-dlp.git
+    git -C "$GIT" clone "https://github.com/yt-dlp/yt-dlp.git"
 fi
 
 # build yt-dlp from sources
@@ -456,7 +452,7 @@ cd $YTDLP_GIT
 make yt-dlp
 
 # create symlink
-ln -s -T $YTDLP_GIT/yt-dlp $HOME/.local/bin/yt-dlp
+ln -s -T "$YTDLP_GIT/yt-dlp" "$HOME/.local/bin/yt-dlp"
 
 unset YTDLP_GIT
 
@@ -468,7 +464,7 @@ unset YTDLP_GIT
 CONFIG_FOLDERS=(pcmanfm morc_menu Kvantum epdfview dmenu-recent ranger libfm Mousepad)
 for FOLDER in $CONFIG_FOLDERS; do
     echo "Removing '$HOME/.config/$FOLDER'"
-    rm -rf $HOME/.config/$FOLDER 2> /dev/null
+    rm -rf "$HOME/.config/$FOLDER" 2> /dev/null
 done
 
 unset FOLDER
@@ -488,7 +484,7 @@ unset HOME_FOLDERS
 HOME_FILES=(.xsession-errors.old .shell.pre-oh-my-zsh .zshrc.pre-oh-my-zsh .dmenurc .profile.bak)
 for FILE in $HOME_FILES; do
     echo "Removing '$HOME/$FILE'"
-    rm -rf $HOME/$FILE 2> /dev/null
+    rm -rf "$HOME/$FILE" 2> /dev/null
 done
 
 unset FILE

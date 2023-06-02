@@ -1,14 +1,5 @@
 export ZSH="$HOME/.oh-my-zsh"
 
-# Custom environment variables
-export CATPPUCCIN="$HOME/.catppuccin"
-export SPICETIFY=$HOME/.spicetify
-export GIT="$HOME/Git"
-export DOTFILES="$GIT/Ladislus/dotfiles"
-export SCRIPTS="$DOTFILES/scripts"
-export WALLPAPERS="$DOTFILES/wallpapers"
-export SOUNDPACKS="$DOTFILES/soundpacks"
-
 # OMZ Config
 ZSH_THEME="agnoster"
 ENABLE_CORRECTION="true"

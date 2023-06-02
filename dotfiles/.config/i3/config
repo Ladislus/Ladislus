@@ -4,6 +4,10 @@
 # Set mod key (Mod1=<Alt>, Mod4=<Super>)
 set $mod Mod4
 
+# Fetch useful environment variables
+set_from_resource $HOME echo $HOME
+set_from_resource $DOTFILES echo $DOTFILES
+
 # Configure border style <normal|1pixel|pixel xx|none|pixel>
 default_border none
 default_floating_border none
@@ -135,12 +139,12 @@ bindsym $mod+l exec --no-startup-id "dm-tool lock"
 
 # Autostart applications
 exec --no-startup-id nitrogen --restore; sleep 1; picom -b
-exec --no-startup-id polybar
+exec_always --no-startup-id killall polybar; polybar
 exec --no-startup-id xfce4-power-manager
 exec --no-startup-id clipit
 exec --no-startup-id numlockx on
 exec --no-startup-id xss-lock -- dm-tool lock
-exec --no-startup-id $HOME/.cargo/bin/rustyvibes $DOTFILES/soundpacks/cherrymx-black-pbt
+exec_always --no-startup-id killall rustyvibes; $HOME/.cargo/bin/rustyvibes $DOTFILES/soundpacks/cherrymx-black-pbt
 
 # Color palette used for the terminal ( ~/.Xresources file )
 # Colors are gathered based on the documentation:

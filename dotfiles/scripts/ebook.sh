@@ -141,7 +141,7 @@ function _ladislus_ebook_pdfy {
     eval set -- "$_X"
 
     # Store usage string as multiple elements can trigger it
-    local USAGE="Usage: $0 [-s | --skip-output]? [-f | --force]? [-o | --output <output folder>] [folder containing the images]"
+    local USAGE="Usage: $0 [-s | --skip-convert]? [-f | --force]? [-o | --output <output folder>] [folder containing the images]"
 
     # Set flags according to the command line
     local SC=false

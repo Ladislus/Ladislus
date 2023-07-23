@@ -23,8 +23,10 @@
         "command": "editor.action.blockComment",
         "when": "editorTextFocus && !editorReadonly"
     },
-
-
+    {
+        "key": "ctrl+space",
+        "command": "workbench.action.terminal.toggleTerminal"
+    },
     {
         "key": "alt+up",
         "command": "-editor.action.moveLinesUpAction",

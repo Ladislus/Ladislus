@@ -34,6 +34,8 @@
 			"",
 			"\t$1($1&& other) noexcept;",
 			"\t$1& operator=($1&& other) noexcept;",
+			"",
+			"friend std::ostream& operator<<(std::ostream& os, const $1& ${2:variable_name});",
 			"};"
 		]
 	}

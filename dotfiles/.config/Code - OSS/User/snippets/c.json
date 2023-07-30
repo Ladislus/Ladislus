@@ -9,5 +9,14 @@
 			"\treturn EXIT_SUCCESS;",
 			"}"
 		],
+	},
+	"Include guard": {
+		"prefix": "guard",
+		"body": [
+			"#ifndef ${1:guard_name}_H",
+			"#define $1_H",
+			"$0",
+			"#endif"
+		]
 	}
 }

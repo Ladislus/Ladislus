@@ -1,0 +1,42 @@
+{
+	"Main entry point": {
+		"prefix": "main",
+		"body": [
+			"#include <cstdio>",
+			"",
+			"int main(int argc, char **argv) {",
+			"\t$0",
+			"\treturn EXIT_SUCCESS;",
+			"}"
+		],
+	},
+	"Include guard": {
+		"prefix": "guard",
+		"body": [
+			"#ifndef ${1:guard_name}_H",
+			"#define $1_H",
+			"$0",
+			"#endif"
+		]
+	},
+	"Class skeleton": {
+		"prefix": "class",
+		"body": [
+			"class ${1:class_name} {",
+			"private:",
+			"\t$0",
+			"public:",
+			"\t$1();",
+			"\t~$1();",
+			"",
+			"\t$1($1& other) noexcept;",
+			"\t$1 operator=($1& other) noexcept;",
+			"",
+			"\t$1($1&& other) noexcept;",
+			"\t$1& operator=($1&& other) noexcept;",
+			"",
+			"friend std::ostream& operator<<(std::ostream& os, const $1& ${2:variable_name});",
+			"};"
+		]
+	}
+}

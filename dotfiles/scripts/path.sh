@@ -66,7 +66,7 @@ function _ladislus_path_filename {
     fi
 
     # return the filename to STDOUT
-    echo "${$(basename "$IF")#*.}"
+    echo "${$(basename "$IF")%%.*}"
 }
 
 # Function to extract the extension (without leading '.') for a given path
@@ -97,7 +97,7 @@ function _ladislus_path_extension {
     fi
 
     # return the extension to STDOUT
-    echo "${$(basename "$IF")%%.*}"
+    echo "${$(basename "$IF")#*.}"
 }
 
 # Function to create a copy of a given file with a new extension

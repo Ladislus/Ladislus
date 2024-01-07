@@ -103,7 +103,7 @@ function _ladislus_ebook_extract_cbz {
         7z x "$FILE" -o"$TARGET" > /dev/null || return 4
     done
 
-    _ladislus_utils_println_interactive "Successfully extracted $LEN ZIP files"
+    _ladislus_utils_println_interactive "Successfully extracted $LEN CBZ files"
 }
 
 # Function to merge all images inside a directory into a single PDF file
@@ -263,7 +263,7 @@ function _ladislus_ebook_pdfy {
 
     # Merge images into a single PDF
     _ladislus_utils_print "Merging $LEN images into '$PDF'"
-    img2pdf -o "$PDF" -s A4 "$FILES[@]" || return 11
+    img2pdf -o "$PDF" -s A4 "$FILES[@]" || return 10
     _ladislus_utils_println_interactive "Merged $LEN images into '$PDF'"
 
     # If we used conversion, remove temporary converted files
@@ -409,7 +409,7 @@ function _ladislus_ebook_generate {
             # Check that the current folder contains only a subfolder
             if [[ "$FILES_LEN" -eq 1 && -d "${FILES[1]}" ]]; then
                 # Move files of the subfolder in the top directory and remove the subfolder
-                (mv "${FILES[1]}/*" "$CUR" && rm -rf "${FILES[1]}") || return 9
+                (mv "${FILES[1]}/"* "$CUR" && rm -rf "${FILES[1]}") || return 9
             else
                 # The "subfolder cleaning" is done, we can generate the PDF
                 break

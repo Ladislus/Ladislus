@@ -9,9 +9,6 @@
     <a href="https://stackoverflow.com/users/11448458">
         <img src="assets/icons/social/stackoverflow.svg" alt="StackOverflow"/>
     </a>
-    <a href="https://www.linkedin.com/in/ladislaswalcak/">
-        <img src="assets/icons/social/linkedin.svg" alt="LinkedIn"/>
-    </a>
     <br>
     <a href="mailto:walcak.ladislas@gmail.com">
         <img src="assets/icons/social/mail.svg" alt="Mail" />

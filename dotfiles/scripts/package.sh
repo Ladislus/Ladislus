@@ -76,8 +76,8 @@ function _ladislus_package_python_update {
 
     # Launch pip update
     _ladislus_utils_println "\n\t\t### Python ###\n"
-    pip install --upgrade pip || return 3
-    pip3 list -o | cut -f1 -d' ' | tr " " "\n" | awk '{if(NR>=3)print}' | cut -d' ' -f1 | xargs -n1 pip3 install -U 2> /dev/null
+    pip install --upgrade pip --break-system-packages || return 3
+    pip3 list -o | cut -f1 -d' ' | tr " " "\n" | awk '{if(NR>=3)print}' | cut -d' ' -f1 | xargs -n1 pip3 install -U --break-system-packages 2> /dev/null
 }
 
 # Function to launch Rust update

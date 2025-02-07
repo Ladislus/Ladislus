@@ -122,6 +122,4 @@
     <a href="https://github.com/Ladislus/m2_as_project/">
         <img src="https://github-readme-stats.vercel.app/api/pin/?username=ladislus&repo=m2_as_project&theme=radical" />
     </a>
-    <a href="https://github.com/Ladislus/lameboy/">
-        <img src="https://github-readme-stats.vercel.app/api/pin/?username=ladislus&repo=lameboy&theme=radical" />
 </div>

@@ -27,6 +27,9 @@ git config --global user.name "Ladislus"
 # git config --global user.signingkey ?????
 git config --global init.defaultBranch master
 git config --global pull.rebase true
+git config --global rerere.enabled true
+
+# Git aliases
 git config --global alias.graph 'log --oneline --decorate --all --graph --stat --pretty="tformat:%C(bold yellow)Commit : %h %n%C(yellow)Author : %an (%ae)%n%C(yellow)Date : %ar%n%n%s"'
 git config --global alias.hard 'reset --hard'
 git config --global alias.cm 'commit -m'

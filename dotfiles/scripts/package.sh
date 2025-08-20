@@ -51,7 +51,7 @@ function _ladislus_package_pamac_update {
 
     # Launch pip update
     _ladislus_utils_println "\n\t\t### Packages ###\n"
-    pamac update --no-confirm
+    pamac update --aur --no-confirm
     pamac remove -o --no-confirm
 
     # Pamac returns 1 in case of "nothing to do", so need to override the return value

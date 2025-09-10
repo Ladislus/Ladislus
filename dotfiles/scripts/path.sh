@@ -3,13 +3,15 @@
 ####################################################
 
 # Function to extract the absolute path for a given path
-# [REQ] dirname, realpath
+# [REQ] dirname realpath
 # [IN]  IP:     The path to a valid file or directory on the system
 # [OUT] STDOUT: The absolute path of IP (without trailing '/')
 # [ERR] (1) Missing required program
 #       (2) Missing parameter
 #       (3) IP is not a valid path to a valid file/directory
 function _ladislus_path_absolute_path {
+    #TODO: Rename to show that it returns the absolute path *of the directory*
+    
     # Assert that required programs are available
     _ladislus_utils_require_multiple dirname realpath || return 1
 
@@ -107,10 +109,10 @@ function _ladislus_path_extension {
 # [OUT] STDOUT: The extension of IF (without leading '.')
 # [ERR] (1) Missing required program
 #       (2) Missing parameters
-#       (2) IF is not a valid path to a valid file
-#       (3) The IF splitting into (absolute directory path, filename, old extension) failed
-#       (4) The new file extension is the same as the old one
-#       (5) The file with the new extension already exists
+#       (3) IF is not a valid path to a valid file
+#       (4) The IF splitting into (absolute directory path, filename, old extension) failed
+#       (5) The new file extension is the same as the old one
+#       (6) The file with the new extension already exists
 function _ladislus_path_change_extension {
     # Assert that required programs are available
     _ladislus_utils_require_multiple _ladislus_path_absolute_path _ladislus_path_filename _ladislus_path_extension cp || return 1
@@ -154,6 +156,47 @@ function _ladislus_path_change_extension {
 
     # Copy the file with the new entension
     cp "$IF" "$NF"
+}
+
+# Function to convert file to Unix line ending (\r\n -> \n)
+# [REQ] realpath sed
+# [IN]  IF:     The path to a valid file
+# [ERR] (1) Missing required program
+#       (2) Missing parameters
+#       (3) IF is not a valid path to a valid file
+#       (4) The IF splitting into (absolute directory path, filename, old extension) failed
+#       (5) The file with the new extension already exists
+#       (6) Sed failed
+function _ladislus_path_convert_unix {
+    # Assert that required programs are available
+    _ladislus_utils_require_multiple realpath sed || return 1
+
+    # Check if there is exactly one argument
+    if [[ "$#" -ne 1 ]]; then
+        _ladislus_utils_error "Usage: $0 [path to file]"
+        _ladislus_utils_error "Got: '$@'"
+        return 2
+    fi
+
+    local IF="${1:?"Error: Missing parameter 1"}"
+
+    # Check that IF is a valid file
+    if [[ ! -f "$IF" ]]; then
+        _ladislus_utils_error "File '$IF' doesn't exist"
+        return 3
+    fi
+
+    local ABSOLUTE_IF="$(realpath "$IF")" || return 4
+    local ABSOLUTE_NF="${ABSOLUTE_IF}.unix" || return 4
+
+    # Assert that the copy name doesn't collide with existing file
+    if [[ -f "$ABSOLUTE_NF" ]]; then
+        _ladislus_utils_error "File '$ABSOLUTE_IF' already exists"
+        return 5;
+    fi
+
+    # Use sed to convert windows line endings to unix
+    ( sed $'s/\r$//' "$ABSOLUTE_IF" > "$ABSOLUTE_NF" ) || return 6
 }
 
 ####################################################

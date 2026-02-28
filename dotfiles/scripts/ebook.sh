@@ -202,7 +202,7 @@ function _ladislus_ebook_pdfy {
     # Compute PDF name and path
     local PDF="$OF/$(basename "$IF").pdf"
 
-    #
+    # Check if the PDF already exists (and "force" option is not used)
     if [[ "$FORCE" = false && -f "$PDF" ]]; then
         _ladislus_utils_println "PDF '$PDF' already exists"
         return 0
@@ -242,6 +242,10 @@ function _ladislus_ebook_pdfy {
         done
 
         _ladislus_utils_println_interactive "Done converting $LEN file(s)"
+
+        # TODO: Check if the ALL the files in the directory were found in the "FILES" variable
+        #       Sometimes, there are only a couple of '.jpg', and the rest is '.webp', so the generated
+        #       PDF will only contain a couple pages
 
         # Collect all converted images
         local FILES=($IF/converted_*.{png,jpg,jpeg}(N))

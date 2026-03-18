@@ -1,0 +1,5 @@
+require('config.editor')
+require('config.search')
+require('config.screen')
+require('config.control')
+require('config.lazy')

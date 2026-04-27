@@ -1,0 +1,18 @@
+[user]
+	email = walcak.ladislas@gmail.com
+	name = Ladislus
+[init]
+	defaultBranch = master
+[pull]
+	rebase = true
+[rerere]
+	enabled = true
+[alias]
+	graph = log --oneline --decorate --all --graph --stat --pretty=\"tformat:%C(bold yellow)Commit : %h %n%C(yellow)Author : %an (%ae)%n%C(yellow)Date : %ar%n%n%s\"
+	hard = reset --hard
+	cm = commit -m
+	cms = commit -S -m
+	amend = commit --amend
+	patch = add --patch
+	cr = clone --recursive
+	su = submodule update --init --recursive

@@ -52,19 +52,28 @@ _ladislus_package_remove "${TOREMOVE[@]}"
 unset TOREMOVE
 
 # Install required packages
-PACKAGES+=(base-devel i3-wm git xss-lock htop numlockx bashtop i3-scrot grep sudo which wget curl tree ncdu openssh zip unzip tar networkmanager blueberry xarchiver clipit nitrogen xfce4-power-manager)
-PACKAGES+=(lightdm lightdm-slick-greeter qt5ct gtk-engine-murrine lightly-qt)
-PACKAGES+=(pacman pamac)
-PACKAGES+=(zsh kitty vim)
-PACKAGES+=(polybar rofi dunst picom)
-PACKAGES+=(vlc thunar)
-PACKAGES+=(discord betterdiscordctl google-chrome tor-browser spotify spicetify-cli)
-PACKAGES+=(code)
-PACKAGES+=(docker docker-compose)
-PACKAGES+=(gcc clang valgrind make cmake doxygen)
-PACKAGES+=(python3 python-pip)
-PACKAGES+=(jdk8-openjdk jre8-openjdk jdk11-openjdk jre11-openjdk kotlin)
-PACKAGES+=(rustup)
+PACKAGES+=(base-devel git htop grep sudo which wget curl tree ncdu openssh zip unzip tar pass nmap rsync grep less ffmpeg imagemagick img2pdf fzf bat man) # Utils
+PACKAGES+=(xss-lock numlockx networkmanager blueberry xarchiver clipit nitrogen xfce4-power-manager thunar)                                                # System
+PACKAGES+=(lightdm lightdm-slick-greeter qt5ct gtk-engine-murrine lightly-qt)                                                                              # Greeters
+PACKAGES+=(i3-wm i3-scrot polybar rofi dunst picom)                                                                                                        # i3
+PACKAGES+=(pacman pamac)                                                                                                                                   # Package manager
+PACKAGES+=(kitty zsh tmux)                                                                                                                                 # Terminal
+PACKAGES+=(google-chrome tor-browser )                                                                                                                     # Internet
+PACKAGES+=(discord betterdiscordctl)                                                                                                                       # Discord
+PACKAGES+=(spotify spicetify-cli)                                                                                                                          # Spotify
+PACKAGES+=(neovim code)                                                                                                                                    # Editors
+PACKAGES+=(docker docker-compose podman)                                                                                                                   # Containers
+PACKAGES+=(vlc)                                                                                                                                            # Apps
+# Languages
+PACKAGES+=(gcc clang llvm)                                                                                                                                 # C/C++ - Compilers
+PACKAGES+=(gdb lldb valgrind lttng-ust strace)                                                                                                             # C/C++ - debug
+PACKAGES+=(make cmake ninja)                                                                                                                               # C/C++ - Build system
+PACKAGES+=(python3 python-pip)                                                                                                                             # Python
+PACKAGES+=(jdk8-openjdk jre8-openjdk jdk11-openjdk jre11-openjdk kotlin)                                                                                   # JVM
+PACKAGES+=(rustup)                                                                                                                                         # Rust
+PACKAGES+=(zig)                                                                                                                                            # Zig
+PACKAGES+=(lua)                                                                                                                                            # Lua
+PACKAGES+=(perl)                                                                                                                                           # Perl
 
 pamac install --no-confirm "${PACKAGES[@]}"
 
@@ -102,7 +111,17 @@ fi
 ssh-keygen -t rsa -b 4096
 
 # Generate GPG key
-gpg --full-generate-key
+gpg --batch --generate-key <<EOF
+    Key-Type: RSA
+    Key-Length: 4096
+    Subkey-Type: RSA
+    Subkey-Length: 4096
+    Name-Real: Ladislas WALCAK
+    Name-Email: walcak.ladislas@gmail.com
+    Expire-Date: 0
+    %no-protection
+    %commit
+EOF
 # TODO: Find way to automatically change in .zshrc
 # POST: Set Signing key in .zshrc
 # POST: Add keys to Github
@@ -114,7 +133,7 @@ gpg --full-generate-key
 #####################
 
 # Update pip
-pip3 install --upgrade pip
+python3 -m pip install --upgrade pip
 # Install system-wide packages
 pip install virtualenv
 

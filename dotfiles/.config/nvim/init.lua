@@ -1,6 +1,6 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
-require('config')
-require('mappings')
-require('plugins')
+require( 'config'   )
+require( 'mappings' )
+require( 'plugins'  )

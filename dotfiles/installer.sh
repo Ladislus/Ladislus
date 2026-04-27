@@ -61,7 +61,7 @@ PACKAGES+=(kitty zsh tmux)                                                      
 PACKAGES+=(google-chrome tor-browser )                                                                                                                     # Internet
 PACKAGES+=(discord betterdiscordctl)                                                                                                                       # Discord
 PACKAGES+=(spotify spicetify-cli)                                                                                                                          # Spotify
-PACKAGES+=(neovim code)                                                                                                                                    # Editors
+PACKAGES+=(neovim)                                                                                                                                         # Editors
 PACKAGES+=(docker docker-compose podman)                                                                                                                   # Containers
 PACKAGES+=(vlc)                                                                                                                                            # Apps
 # Languages

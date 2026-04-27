@@ -1,6 +1,7 @@
 [user]
 	email = walcak.ladislas@gmail.com
 	name = Ladislus
+	signingkey = walcak.ladislas@gmail.com
 [init]
 	defaultBranch = master
 [pull]

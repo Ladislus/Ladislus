@@ -62,18 +62,13 @@ PACKAGES+=(google-chrome tor-browser )                                          
 PACKAGES+=(discord betterdiscordctl)                                                                                                                       # Discord
 PACKAGES+=(spotify spicetify-cli)                                                                                                                          # Spotify
 PACKAGES+=(neovim)                                                                                                                                         # Editors
-PACKAGES+=(docker docker-compose podman)                                                                                                                   # Containers
+PACKAGES+=(podman)                                                                                                                                         # Containers
 PACKAGES+=(vlc)                                                                                                                                            # Apps
 # Languages
 PACKAGES+=(gcc clang llvm)                                                                                                                                 # C/C++ - Compilers
 PACKAGES+=(gdb lldb valgrind lttng-ust strace)                                                                                                             # C/C++ - debug
 PACKAGES+=(make cmake ninja)                                                                                                                               # C/C++ - Build system
 PACKAGES+=(python3 python-pip)                                                                                                                             # Python
-PACKAGES+=(jdk8-openjdk jre8-openjdk jdk11-openjdk jre11-openjdk kotlin)                                                                                   # JVM
-PACKAGES+=(rustup)                                                                                                                                         # Rust
-PACKAGES+=(zig)                                                                                                                                            # Zig
-PACKAGES+=(lua)                                                                                                                                            # Lua
-PACKAGES+=(perl)                                                                                                                                           # Perl
 
 pamac install --no-confirm "${PACKAGES[@]}"
 
@@ -138,20 +133,11 @@ python3 -m pip install --upgrade pip
 pip install virtualenv
 
 #####################
-#       RUST        #
-#####################
-
-# Install Rust stable toolchain
-rustup toolchain install stable
-rustup default stable
-rustup -V
-
-#####################
 #       CODE        #
 #####################
 
 # Install Code extensions via extension IDs
-EXTENSIONS=(Catppuccin.catppuccin-vsc ms-python.python PKief.material-icon-theme rust-lang.rust-analyzer)
+EXTENSIONS=(Catppuccin.catppuccin-vsc ms-python.python PKief.material-icon-theme)
 for _X in $EXTENSIONS; do
     code --install-extension "$_X"
 done
@@ -174,7 +160,6 @@ cp -r $DOTFILES/.config/xfce4 $HOME/.config
 
 # Enable bluetooth & docker service
 sudo systemctl enable --now bluetooth.service
-sudo systemctl enable --now docker.service
 
 #####################
 #         I3        #
@@ -448,12 +433,6 @@ _ladislus_spicetify_theme
 
 wget -P "$GIT" "https://gist.githubusercontent.com/Ladislus/cedb8a5107d591ea308b23beb40e647b/raw/GithubFetchAll.py"
 # POST: execute fetchall (can't use without adding SSH key before)
-
-#####################
-#     RUSTYVIBES    #
-#####################
-
-cargo install rustyvibes
 
 #####################
 #       YT-DLP      #

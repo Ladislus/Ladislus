@@ -179,7 +179,7 @@ pulse_install
 #####################
 
 # Copy custom icons
-cp -r "$DOTFILES/.icons" "$HOME"
+tar xf "$DOTFILES/.icons" -C "$HOME"
 # Remove icons folder in .local to prevent default icons
 rm -rf "$HOME/.local/share/icons"
 

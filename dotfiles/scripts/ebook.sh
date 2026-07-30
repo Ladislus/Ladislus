@@ -126,7 +126,7 @@ function _ladislus_ebook_extract_cbz {
 #       (11) Temporary files removal failed
 function _ladislus_ebook_pdfy {
     # Assert that required program are available
-    _ladislus_utils_require_multiple getopt convert basename img2pdf rm || return 1
+    _ladislus_utils_require_multiple getopt magick basename img2pdf rm || return 1
 
     # For some reason, assigning to local variable override the return code of 'getopt', so we can't trap invalid options
     _X="$(getopt -o hso:f -l help,skip-convert,output:,force -n "$0" -- "$@")"
@@ -238,7 +238,7 @@ function _ladislus_ebook_pdfy {
             _ladislus_utils_print_interactive "[$_X/$LEN] Converting '$IF/$FILE'"
 
             # convert $FILE to normalized format
-            convert "$IF/$FILE" -background white -alpha remove -alpha off "$IF/$TARGET" || return 8;
+           magick convert "$IF/$FILE" -background white -alpha remove -alpha off "$IF/$TARGET" || return 8;
         done
 
         _ladislus_utils_println_interactive "Done converting $LEN file(s)"

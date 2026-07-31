@@ -238,7 +238,7 @@ function _ladislus_ebook_pdfy {
             _ladislus_utils_print_interactive "[$_X/$LEN] Converting '$IF/$FILE'"
 
             # convert $FILE to normalized format
-           magick convert "$IF/$FILE" -background white -alpha remove -alpha off "$IF/$TARGET" || return 8;
+            magick "$IF/$FILE" -background white -alpha remove -alpha off "$IF/$TARGET" || return 8;
         done
 
         _ladislus_utils_println_interactive "Done converting $LEN file(s)"

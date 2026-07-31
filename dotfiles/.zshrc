@@ -13,7 +13,7 @@ setopt EXTENDED_GLOB
 
 source "$HOME/.profile"
 # Source custom scripts through aggregator
-source "$SCRIPTS/ladislus.sh"
+source "$LDL_SCRIPTS/ladislus.sh"
 
 # Preferred editor for local and remote sessions
 # if [[ -n "$SSH_CONNECTION" ]]; then

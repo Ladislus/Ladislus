@@ -9,31 +9,31 @@ if [[ -z "$HOME" ]]; then
 fi
 
 # Set environment variable
-export CATPPUCCIN="$HOME/.catppuccin"
-export SPICETIFY="$HOME/.spicetify"
-export GIT="$HOME/Git"
-export DOTFILES="$GIT/Ladislus/dotfiles"
-export SCRIPTS="$DOTFILES/scripts"
-export WALLPAPERS="$DOTFILES/wallpapers"
-export SOUNDPACKS="$DOTFILES/soundpacks"
+export LDL_CATPPUCCIN="$HOME/.catppuccin"
+export LDL_SPICETIFY="$HOME/.spicetify"
+export LDL_GIT="$HOME/Git"
+export LDL_DOTFILES="$LDL_GIT/Ladislus/dotfiles"
+export LDL_SCRIPTS="$LDL_DOTFILES/scripts"
+export LDL_WALLPAPERS="$LDL_DOTFILES/wallpapers"
+export LDL_SOUNDPACKS="$LDL_DOTFILES/soundpacks"
 
 # Create required folders if they don't already exist
-mkdir -p "$GIT" "$CATPPUCCIN"
+mkdir -p "$LDL_GIT" "$LDL_CATPPUCCIN"
 
 # Check that dotfile folder exists
-if [[ ! -d "$DOTFILES" ]]; then
+if [[ ! -d "$LDL_DOTFILES" ]]; then
     echo "Dotfiles missing, cloning it"
-    git -C "$GIT" clone "https://github.com/Ladislus/Ladislus.git"
+    git -C "$LDL_GIT" clone "https://github.com/Ladislus/Ladislus.git"
 
     # If cloning the repository didn't fix the missing folder, this means the 'dotfiles' subfolder in the git repository was probably renamed
-    if [[ ! -d "$DOTFILES" ]]; then
+    if [[ ! -d "$LDL_DOTFILES" ]]; then
         >&2 echo "Cloning dotfiles repository didn't fix it, something is wrong, aborting"
         return 1
     fi
 fi
 
 # Source script as they contains usefull functions
-source "$SCRIPTS/ladislus.sh" || return 1
+source "$LDL_SCRIPTS/ladislus.sh" || return 1
 
 #####################
 #     PACKAGES      #
@@ -91,7 +91,7 @@ if [[ ! -d "$HOME/.oh-my-zsh" ]]; then
     sudo chsh -s "$(which zsh)"
 
     # Set config and load it
-    cat "$DOTFILES/.zshrc" > "$HOME/.zshrc"
+    cat "$LDL_DOTFILES/.zshrc" > "$HOME/.zshrc"
     source "$HOME/.zshrc"
 
     # Install Zsh-syntax-highlight plugin
@@ -145,14 +145,14 @@ done
 unset EXTENSIONS
 
 # Copy custom config files
-cp -r "$DOTFILES/.config/Code - OSS" $HOME/.config
+cp -r "$LDL_DOTFILES/.config/Code - OSS" $HOME/.config
 
 #####################
 #   POWER MANAGER   #
 #####################
 
 # Copy custom config
-cp -r $DOTFILES/.config/xfce4 $HOME/.config
+cp -r $LDL_DOTFILES/.config/xfce4 $HOME/.config
 
 #####################
 #      SYSTEMCTL    #
@@ -168,8 +168,8 @@ sudo systemctl enable --now bluetooth.service
 # TODO: Configure
 
 # Copy i3 custom config file
-cp -r $DOTFILES/.config/i3 $HOME/.config
-cp $DOTFILES/.profile $HOME
+cp -r $LDL_DOTFILES/.config/i3 $HOME/.config
+cp $LDL_DOTFILES/.profile $HOME
 
 # Uprade from alsa -> pulseaudio
 pulse_install
@@ -179,7 +179,7 @@ pulse_install
 #####################
 
 # Copy custom icons
-tar xf "$DOTFILES/.icons" -C "$HOME"
+tar xf "$LDL_DOTFILES/.icons" -C "$HOME"
 # Remove icons folder in .local to prevent default icons
 rm -rf "$HOME/.local/share/icons"
 
@@ -188,7 +188,7 @@ rm -rf "$HOME/.local/share/icons"
 #####################
 
 # Copy custom fonts
-cp -r "$DOTFILES/.fonts" "$HOME"
+cp -r "$LDL_DOTFILES/.fonts" "$HOME"
 # Reload font cache
 fc-cache -fv
 
@@ -197,11 +197,11 @@ fc-cache -fv
 #####################
 
 QT_THEMES="$HOME/.config/qt5ct/colors/"
-QT_GIT="$CATPPUCCIN/qt5ct"
+QT_GIT="$LDL_CATPPUCCIN/qt5ct"
 
 # Clone Catppuccin theme for Rofi
 if [[ ! -d "$QT_GIT" ]]; then
-    git -C "$CATPPUCCIN" clone "https://github.com/Catppuccin/qt5ct.git"
+    git -C "$LDL_CATPPUCCIN" clone "https://github.com/Catppuccin/qt5ct.git"
 fi
 
 # Create required folders
@@ -212,7 +212,7 @@ for _X in $QT_GIT/themes/*.conf; do
     ln -s -T "$_X" "$QT_THEMES/$(basename "$_X")"
 done
 
-cp $DOTFILES/.config/qt5ct/qt5ct.conf $HOME/.config/qt5ct
+cp $LDL_DOTFILES/.config/qt5ct/qt5ct.conf $HOME/.config/qt5ct
 
 unset QT_THEMES
 unset QT_GIT
@@ -222,14 +222,14 @@ unset QT_GIT
 #####################
 
 GTK_THEMES="$HOME/.themes"
-GTK_GIT="$CATPPUCCIN/gtk"
+GTK_GIT="$LDL_CATPPUCCIN/gtk"
 
 # Create required folders
 mkdir -p "$GTK_THEMES"
 
 # Clone Catppuccin theme for Rofi
 if [[ ! -d "$GTK_GIT" ]]; then
-    git -C "$CATPPUCCIN" clone "https://github.com/Catppuccin/gtk.git"
+    git -C "$LDL_CATPPUCCIN" clone "https://github.com/Catppuccin/gtk.git"
 fi
 
 # Prepare python environment
@@ -246,8 +246,8 @@ deactivate
 rm -rf ./venv
 
 # Copy configs
-cp -r $DOTFILES/.config/gtk-{2,3}.0 $HOME/.config
-cp $DOTFILES/.config/.gtkrc-2.0.mine $HOME/.config
+cp -r $LDL_DOTFILES/.config/gtk-{2,3}.0 $HOME/.config
+cp $LDL_DOTFILES/.config/.gtkrc-2.0.mine $HOME/.config
 
 # Source custom gtk config inside .gtkrc file (only for GTK2)
 echo "include \"$HOME/.config/.gtkrc-2.0.mine\"" > "$HOME/.gtkrc-2.0"
@@ -264,22 +264,22 @@ sudo cp -r $HOME/.icons/* /usr/share/icons
 sudo cp -r $HOME/.themes/* /usr/share/themes
 
 # Copy custom config
-sudo cp -r $DOTFILES/lightdm /etc/
+sudo cp -r $LDL_DOTFILES/lightdm /etc/
 
 #####################
 #       KITTY       #
 #####################
 
 KITTY_THEMES="$HOME/.config/kitty/themes"
-KITTY_GIT="$CATPPUCCIN/kitty"
+KITTY_GIT="$LDL_CATPPUCCIN/kitty"
 
-cp -r $DOTFILES/.config/kitty $HOME/.config
+cp -r $LDL_DOTFILES/.config/kitty $HOME/.config
 
 mkdir -p $KITTY_THEMES
 
 # Clone Catppuccin theme for Rofi
 if [[ ! -d "${KITTY_GIT}" ]]; then
-    git -C $CATPPUCCIN clone https://github.com/Catppuccin/kitty.git
+    git -C $LDL_CATPPUCCIN clone https://github.com/Catppuccin/kitty.git
 fi
 
 # Create symlinks inside kitty theme folder
@@ -298,11 +298,11 @@ unset KITTY_GIT
 #####################
 
 ROFI_THEMES=".local/share/rofi/themes"
-ROFI_GIT="$CATPPUCCIN/rofi"
+ROFI_GIT="$LDL_CATPPUCCIN/rofi"
 
 # Clone Catppuccin theme for Rofi
 if [[ ! -d "${ROFI_GIT}" ]]; then
-    git -C $CATPPUCCIN clone https://github.com/Catppuccin/rofi.git
+    git -C $LDL_CATPPUCCIN clone https://github.com/Catppuccin/rofi.git
 fi
 
 # Create required folders
@@ -315,7 +315,7 @@ for FILE in $ROFI_GIT/basic/$ROFI_THEMES/*; do
 done
 
 # Copy custom rofi config
-cp -r "$DOTFILES/.config/rofi" "$HOME/.config"
+cp -r "$LDL_DOTFILES/.config/rofi" "$HOME/.config"
 
 # Bonus rofi themes
 git -C "/tmp" clone "https://github.com/newmanls/rofi-themes-collection"
@@ -340,29 +340,29 @@ echo "scrot_dir=$HOME/Documents" > $HOME/.config/i3-scrot.conf
 #      Thunar       #
 #####################
 
-cp -r $DOTFILES/.config/Thunar $HOME/.config
+cp -r $LDL_DOTFILES/.config/Thunar $HOME/.config
 # Already done by Power Manager
-# cp -r $DOTFILES/.config/xfce4 $HOME/.config
+# cp -r $LDL_DOTFILES/.config/xfce4 $HOME/.config
 
 #####################
 #       PICOM       #
 #####################
 
-cp $DOTFILES/.config/picom.conf $HOME/.config
+cp $LDL_DOTFILES/.config/picom.conf $HOME/.config
 
 #####################
 #       DUNST       #
 #####################
 
-DUNST_GIT="$CATPPUCCIN/dunst"
+DUNST_GIT="$LDL_CATPPUCCIN/dunst"
 
 # Clone Catppuccin theme for Dunst
 if [[ ! -d "${DUNST_GIT}" ]]; then
-    git -C $CATPPUCCIN clone https://github.com/Catppuccin/dunst.git
+    git -C $LDL_CATPPUCCIN clone https://github.com/Catppuccin/dunst.git
 fi
 
 # Copy custom config
-cp -r $DOTFILES/.config/dunst $HOME/.config
+cp -r $LDL_DOTFILES/.config/dunst $HOME/.config
 
 # Append catppuccin theme to the end of the config file
 cat "${DUNST_GIT}/src/frappe.conf" >> $HOME/.config/dunst/dunstrc
@@ -377,10 +377,10 @@ unset DUNST_GIT
 #       CLIPIT      #
 #####################
 
-cp -r $DOTFILES/.config/clipit $HOME/.config
+cp -r $LDL_DOTFILES/.config/clipit $HOME/.config
 
 #####################
-#    WALLPAPERS     #
+#    LDL_WALLPAPERS     #
 #####################
 
 _ladislus_wallpaper_random
@@ -390,11 +390,11 @@ _ladislus_wallpaper_random
 #####################
 
 DISCORD_THEMES="$HOME/.config/BetterDiscord/themes"
-DISCORD_GIT="$CATPPUCCIN/discord"
+DISCORD_GIT="$LDL_CATPPUCCIN/discord"
 
 # Clone Catppuccin theme for Rofi
 if [[ ! -d "$DISCORD_GIT" ]]; then
-    git -C $CATPPUCCIN clone https://github.com/Catppuccin/discord.git
+    git -C $LDL_CATPPUCCIN clone https://github.com/Catppuccin/discord.git
 fi
 
 # Launch discord to generate config files
@@ -405,7 +405,7 @@ discord
 betterdiscordctl install
 
 # Copy custom config
-cp -r $DOTFILES/.config/BetterDiscord $HOME/.config
+cp -r $LDL_DOTFILES/.config/BetterDiscord $HOME/.config
 
 # Create required folder in case it doesn't exist
 mkdir -p $DISCORD_THEMES
@@ -419,7 +419,7 @@ unset DISCORD_THEMES
 unset ROFI_GIT
 
 #####################
-#     SPICETIFY     #
+#     LDL_SPICETIFY     #
 #####################
 
 # Download spicetify-themes
@@ -428,21 +428,21 @@ _ladislus_spicetify_download
 _ladislus_spicetify_theme
 
 #####################
-#        GIT        #
+#        LDL_GIT        #
 #####################
 
-wget -P "$GIT" "https://gist.githubusercontent.com/Ladislus/cedb8a5107d591ea308b23beb40e647b/raw/GithubFetchAll.py"
+wget -P "$LDL_GIT" "https://gist.githubusercontent.com/Ladislus/cedb8a5107d591ea308b23beb40e647b/raw/GithubFetchAll.py"
 # POST: execute fetchall (can't use without adding SSH key before)
 
 #####################
 #       YT-DLP      #
 #####################
 
-YTDLP_GIT="$GIT/yt-dlp"
+YTDLP_GIT="$LDL_GIT/yt-dlp"
 
 # If yt-dlp is not cloned, clone it
 if [[ ! -d "$YTDLP_GIT" ]]; then
-    git -C "$GIT" clone "https://github.com/yt-dlp/yt-dlp.git"
+    git -C "$LDL_GIT" clone "https://github.com/yt-dlp/yt-dlp.git"
 fi
 
 # build yt-dlp from sources

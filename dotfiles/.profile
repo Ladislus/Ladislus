@@ -4,10 +4,10 @@ export BROWSER='/usr/bin/google-chrome-stable'
 export EDITOR='nvim'
 
 # Custom environment variables
-export CATPPUCCIN="$HOME/.catppuccin"
-export SPICETIFY=$HOME/.spicetify
-export GIT="$HOME/Git"
-export DOTFILES="$GIT/Ladislus/dotfiles"
-export SCRIPTS="$DOTFILES/scripts"
-export WALLPAPERS="$DOTFILES/wallpapers"
-export SOUNDPACKS="$DOTFILES/soundpacks"
+export LDL_CATPPUCCIN="$HOME/.catppuccin"
+export LDL_SPICETIFY=$HOME/.spicetify
+export LDL_GIT="$HOME/Git"
+export LDL_DOTFILES="$LDL_GIT/Ladislus/dotfiles"
+export LDL_SCRIPTS="$LDL_DOTFILES/scripts"
+export LDL_WALLPAPERS="$LDL_DOTFILES/wallpapers"
+export LDL_SOUNDPACKS="$LDL_DOTFILES/soundpacks"

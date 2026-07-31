@@ -2,7 +2,7 @@
 # [REQ] ln
 # [ERR] (1) Missing required program
 #       (2) Too many parameters
-#       (3) $SPICETIFY env varible is not available
+#       (3) $LDL_SPICETIFY env varible is not available
 #       (4) Spicetify theme folder doesn't exist
 function _ladislus_spicetify_symlink {
     # Assert that required programs are available
@@ -15,9 +15,9 @@ function _ladislus_spicetify_symlink {
         return 2
     fi
 
-    # Check that $SPICETIFY env variable is set
-    if [[ -z "$SPICETIFY" ]]; then
-        _ladislus_utils_error "Missing env variable \$SPICETIFY"
+    # Check that $LDL_SPICETIFY env variable is set
+    if [[ -z "$LDL_SPICETIFY" ]]; then
+        _ladislus_utils_error "Missing env variable \$LDL_SPICETIFY"
         return 3
     fi
 
@@ -31,7 +31,7 @@ function _ladislus_spicetify_symlink {
     fi
 
     # Create symlinks for directories
-    for _X in $SPICETIFY/*(-/N); do
+    for _X in $LDL_SPICETIFY/*(-/N); do
         ln -s -T "$_X" "$THEMES/$(basename "$_X")"
     done
 }
@@ -40,7 +40,7 @@ function _ladislus_spicetify_symlink {
 # [REQ] git _ladislus_spicetify_symlink _ladislus_spicetify_update
 # [ERR] (1) Missing required program
 #       (2) Too many parameters
-#       (3) $SPICETIFY env varible is not available
+#       (3) $LDL_SPICETIFY env varible is not available
 #       (4) Creating spicetify symlinks failed
 #       (5) Updating spicetify_themes failed
 function _ladislus_spicetify_download {
@@ -54,15 +54,15 @@ function _ladislus_spicetify_download {
         return 2
     fi
 
-    # Check that $SPICETIFY env variable is set
-    if [[ -z "$SPICETIFY" ]]; then
-        _ladislus_utils_error "Missing env variable \$SPICETIFY"
+    # Check that $LDL_SPICETIFY env variable is set
+    if [[ -z "$LDL_SPICETIFY" ]]; then
+        _ladislus_utils_error "Missing env variable \$LDL_SPICETIFY"
         return 3
     fi
 
     # If the git repository doesn't exist, clone it
-    if [[ ! -d "$SPICETIFY" ]]; then
-        git -C "$HOME" clone "https://github.com/morpheusthewhite/spicetify-themes" "$SPICETIFY"
+    if [[ ! -d "$LDL_SPICETIFY" ]]; then
+        git -C "$HOME" clone "https://github.com/morpheusthewhite/spicetify-themes" "$LDL_SPICETIFY"
         _ladislus_spicetify_symlink || return 4
     else
         # Else, update it
@@ -75,7 +75,7 @@ function _ladislus_spicetify_download {
 # [REQ] git _ladislus_spicetify_symlink
 # [ERR] (1) Missing required program
 #       (2) Too many parameters
-#       (3) $SPICETIFY env varible is not available
+#       (3) $LDL_SPICETIFY env varible is not available
 #       (4) Updating spicetify_themes failed
 #       (5) Resetting symlinks failed
 function _ladislus_spicetify_update {
@@ -89,14 +89,14 @@ function _ladislus_spicetify_update {
         return 2
     fi
 
-    # Check that $SPICETIFY env variable is set
-    if [[ -z "$SPICETIFY" ]]; then
-        _ladislus_utils_error "Missing env variable \$SPICETIFY"
+    # Check that $LDL_SPICETIFY env variable is set
+    if [[ -z "$LDL_SPICETIFY" ]]; then
+        _ladislus_utils_error "Missing env variable \$LDL_SPICETIFY"
         return 3
     fi
 
     # Update git repository
-    git -C "$SPICETIFY" pull || return 4
+    git -C "$LDL_SPICETIFY" pull || return 4
 
     # Reset symlinks
     rm -f $HOME/.config/spicetify/Themes/*(@)

@@ -18,14 +18,14 @@ function _ladislus_wallpaper_random {
         return 2
     fi
 
-    # Check that $WALLPAPERS env variable is set
-    if [[ -z "$WALLPAPERS" ]]; then
-        _ladislus_utils_error "Missing env variable \$WALLPAPERS which is default value"
+    # Check that $LDL_WALLPAPERS env variable is set
+    if [[ -z "$LDL_WALLPAPERS" ]]; then
+        _ladislus_utils_error "Missing env variable \$LDL_WALLPAPERS which is default value"
         return 3
     fi
 
     # Copy first parameter to a local variable, or use default
-    local DIR="${1:-"$WALLPAPERS"}"
+    local DIR="${1:-"$LDL_WALLPAPERS"}"
 
     # Check that the provided directory is valid
     if [[ ! -d "$DIR" ]]; then

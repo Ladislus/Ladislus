@@ -144,6 +144,6 @@ function _ladislus_package_update {
     # Launch updates
     _ladislus_package_pamac_update || (_ladislus_utils_error "Pamac update failed with code: '$?'" && return 3)
     _ladislus_package_python_update || (_ladislus_utils_error "Python update failed with code: '$?'" && return 4)
-    _ladislus_package_rust_update || (_ladislus_utils_error "Rust update failed with code: '$?'" && return 5)
+    # _ladislus_package_rust_update || (_ladislus_utils_error "Rust update failed with code: '$?'" && return 5)
     _ladislus_package_omz_update || (_ladislus_utils_error "OMZ update failed with code: '$?'" && return 6)
 }

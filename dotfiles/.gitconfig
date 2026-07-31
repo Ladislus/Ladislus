@@ -15,5 +15,3 @@
 	cms = commit -S -m
 	amend = commit --amend
 	patch = add --patch
-	cr = clone --recursive
-	su = submodule update --init --recursive

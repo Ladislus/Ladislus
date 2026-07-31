@@ -35,12 +35,12 @@ fi
 if [[ ! -e '/tmp/keyring_updated' ]]
 then
     # Install keyring
-    sudo pacman -S manjaro-keyring --noconfirm
+    sudo pacman -S archlinux-keyring --noconfirm
     # Delete previous key cache
     sudo rm -rf /etc/pacman.d/gnupg/
     # Re-init keyring
     sudo pacman-key --init
-    sudo pacman-key --populate archlinux manjaro
+    sudo pacman-key --populate archlinux
     sudo pacman-key --refresh-keys
     # Remove previous packages part that could have been downloaded with old keys
     find /var/cache/pacman/pkg/ -iname '*.part' -delete
@@ -69,14 +69,14 @@ source "$LDL_SCRIPTS/ladislus.sh" || exit 1
 #     PACKAGES      #
 #####################
 
+# TODO: Install pamac or check that is exists !
+sudo pacman -S pamac --noconfirm
+#
 # Enable colored output for pacman
 sudo sed -Ei '/Color/s/^#//' /etc/pacman.conf
 
 # Enabling AUR support on pamac
 sudo sed -Ei '/EnableAUR/s/^#//' /etc/pamac.conf
-
-# TODO: Install pamac or check that is exists !
-sudo pacman -S pamac --noconfirm
 
 # Clean i3 default unwanted application
 TOREMOVE=(i3exit i3lock mousepad conky kvantum kvantum-manjaro xautolock i3status-manjaro moc manjaro-i3-settings palemoon-bin epdfview xterm urxvt-perls manjaro-ranger-settings ranger dmenu-manjaro morc_menu bmenu pcmanfm polkit-gnome)
@@ -413,7 +413,7 @@ unset DUNST_GIT
 cp -r $LDL_DOTFILES/.config/clipit $HOME/.config
 
 #####################
-#    LDL_WALLPAPERS     #
+#    WALLPAPERS     #
 #####################
 
 _ladislus_wallpaper_random
@@ -452,7 +452,7 @@ unset DISCORD_THEMES
 unset ROFI_GIT
 
 #####################
-#     LDL_SPICETIFY     #
+#     SPICETIFY     #
 #####################
 
 # Download spicetify-themes
@@ -461,7 +461,7 @@ _ladislus_spicetify_download
 _ladislus_spicetify_theme
 
 #####################
-#        LDL_GIT        #
+#        GIT        #
 #####################
 
 wget -P "$LDL_GIT" "https://gist.githubusercontent.com/Ladislus/cedb8a5107d591ea308b23beb40e647b/raw/GithubFetchAll.py"

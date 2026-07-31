@@ -76,6 +76,7 @@ sudo sed -Ei '/Color/s/^#//' /etc/pacman.conf
 sudo sed -Ei '/EnableAUR/s/^#//' /etc/pamac.conf
 
 # TODO: Install pamac or check that is exists !
+sudo pacman -S pamac --noconfirm
 
 # Clean i3 default unwanted application
 TOREMOVE=(i3exit i3lock mousepad conky kvantum kvantum-manjaro xautolock i3status-manjaro moc manjaro-i3-settings palemoon-bin epdfview xterm urxvt-perls manjaro-ranger-settings ranger dmenu-manjaro morc_menu bmenu pcmanfm polkit-gnome)

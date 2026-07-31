@@ -4,8 +4,8 @@
 
 # Assert that $HOME is set
 if [[ -z "$HOME" ]]; then
-    >&2 echo "\$HOME environment variable is empty"
-    return 1
+    >&2 echo '$HOME environment variable is empty'
+    exit 1
 fi
 
 # Set environment variable
@@ -22,18 +22,48 @@ mkdir -p "$LDL_GIT" "$LDL_CATPPUCCIN"
 
 # Check that dotfile folder exists
 if [[ ! -d "$LDL_DOTFILES" ]]; then
-    echo "Dotfiles missing, cloning it"
-    git -C "$LDL_GIT" clone "https://github.com/Ladislus/Ladislus.git"
+    echo 'Dotfiles missing, cloning it'
+    git -C "$LDL_GIT" clone 'https://github.com/Ladislus/Ladislus.git'
 
     # If cloning the repository didn't fix the missing folder, this means the 'dotfiles' subfolder in the git repository was probably renamed
     if [[ ! -d "$LDL_DOTFILES" ]]; then
-        >&2 echo "Cloning dotfiles repository didn't fix it, something is wrong, aborting"
-        return 1
+        >&2 echo 'Cloning dotfiles repository did not fix it, something is wrong, aborting'
+        exit 1
     fi
 fi
 
+if [[ ! -e '/tmp/keyring_updated' ]]
+then
+    # Install keyring
+    sudo pacman -S manjaro-keyring --noconfirm
+    # Delete previous key cache
+    sudo rm -rf /etc/pacman.d/gnupg/
+    # Re-init keyring
+    sudo pacman-key --init
+    sudo pacman-key --populate archlinux manjaro
+    sudo pacman-key --refresh-keys
+    # Remove previous packages part that could have been downloaded with old keys
+    find /var/cache/pacman/pkg/ -iname '*.part' -delete
+    touch '/tmp/keyring_updated'
+else
+    echo 'Keyring already updated, skipping !'
+fi
+
 # Source script as they contains usefull functions
-source "$LDL_SCRIPTS/ladislus.sh" || return 1
+if [[ -z "$ZSH_VERSION" ]]
+then
+    if [[ -e '/tmp/install_retry' ]]
+    then
+        >&2 echo 'This is already a retry inside ZSH, but shell is still not good, aborting !'
+        exit 1
+    fi
+    echo '$ZSH_VERSION is not set, shell is probably not ZSH, installing it and re-running the install script'
+    sudo pacman -S zsh --noconfirm
+    touch '/tmp/install_retry'
+    # Re-execute the current script with zsh
+    $(which zsh) $(realpath "$0")
+fi
+source "$LDL_SCRIPTS/ladislus.sh" || exit 1
 
 #####################
 #     PACKAGES      #
@@ -44,6 +74,8 @@ sudo sed -Ei '/Color/s/^#//' /etc/pacman.conf
 
 # Enabling AUR support on pamac
 sudo sed -Ei '/EnableAUR/s/^#//' /etc/pamac.conf
+
+# TODO: Install pamac or check that is exists !
 
 # Clean i3 default unwanted application
 TOREMOVE=(i3exit i3lock mousepad conky kvantum kvantum-manjaro xautolock i3status-manjaro moc manjaro-i3-settings palemoon-bin epdfview xterm urxvt-perls manjaro-ranger-settings ranger dmenu-manjaro morc_menu bmenu pcmanfm polkit-gnome)
